@@ -1,0 +1,7 @@
+C:\Users\cleme\source\repos\MyFoodStock\AuthenticationService\bin\AuthenticationService.dll.config
+C:\Users\cleme\source\repos\MyFoodStock\AuthenticationService\bin\AuthenticationService.dll
+C:\Users\cleme\source\repos\MyFoodStock\AuthenticationService\bin\AuthenticationService.pdb
+C:\Users\cleme\source\repos\MyFoodStock\AuthenticationService\obj\Debug\AuthenticationService.csprojAssemblyReference.cache
+C:\Users\cleme\source\repos\MyFoodStock\AuthenticationService\obj\Debug\AuthenticationService.csproj.CoreCompileInputs.cache
+C:\Users\cleme\source\repos\MyFoodStock\AuthenticationService\obj\Debug\AuthenticationService.dll
+C:\Users\cleme\source\repos\MyFoodStock\AuthenticationService\obj\Debug\AuthenticationService.pdb
