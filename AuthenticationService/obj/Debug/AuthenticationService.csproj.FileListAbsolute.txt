@@ -5,3 +5,7 @@ C:\Users\cleme\source\repos\MyFoodStock\AuthenticationService\obj\Debug\Authenti
 C:\Users\cleme\source\repos\MyFoodStock\AuthenticationService\obj\Debug\AuthenticationService.csproj.CoreCompileInputs.cache
 C:\Users\cleme\source\repos\MyFoodStock\AuthenticationService\obj\Debug\AuthenticationService.dll
 C:\Users\cleme\source\repos\MyFoodStock\AuthenticationService\obj\Debug\AuthenticationService.pdb
+C:\Users\cleme\source\repos\MyFoodStock\AuthenticationService\bin\MySql.Data.dll
+C:\Users\cleme\source\repos\MyFoodStock\AuthenticationService\bin\Google.Protobuf.dll
+C:\Users\cleme\source\repos\MyFoodStock\AuthenticationService\bin\MySql.Data.xml
+C:\Users\cleme\source\repos\MyFoodStock\AuthenticationService\obj\Debug\AuthenticationService.csproj.CopyComplete

@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuthenticationService", "Au
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FoodManagerService", "FoodManagerService\FoodManagerService.csproj", "{339EEE88-FF7A-45B8-8ABF-82C8C4327A4F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserService", "UserService\UserService.csproj", "{E0150373-365A-4028-965B-DA062E085307}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{339EEE88-FF7A-45B8-8ABF-82C8C4327A4F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{339EEE88-FF7A-45B8-8ABF-82C8C4327A4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{339EEE88-FF7A-45B8-8ABF-82C8C4327A4F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E0150373-365A-4028-965B-DA062E085307}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E0150373-365A-4028-965B-DA062E085307}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E0150373-365A-4028-965B-DA062E085307}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E0150373-365A-4028-965B-DA062E085307}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
