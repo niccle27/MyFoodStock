@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using MySql.Data.MySqlClient;
 
-namespace FoodManagerService
+namespace UserService.Database
 {
     /// <summary>
     /// This class proxy the MySqlConnection in order to make sure that the MySqlConnection instance remain
@@ -34,6 +34,7 @@ namespace FoodManagerService
                 instance.ConnectionString = mySqlConnectionStringBuilder.GetConnectionString(true);
                 Console.WriteLine(instance.ConnectionString);
                 instance.Open();
+                instance.Close();
             }
             catch (MySqlException ex)
             {
