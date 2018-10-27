@@ -14,7 +14,13 @@ namespace UserService
     {
         #region serviceFunctions
         [OperationContract]
-        string Connect(string userLogin, String userPassword);
+        string Connect(string userLogin, string userPassword);
+
+        [OperationContract]
+        string Register(string userLogin, string userPassword);
+
+        [OperationContract]
+        bool IsTokenStillValid(string userLogin, string userToken);
         #endregion
 
     }

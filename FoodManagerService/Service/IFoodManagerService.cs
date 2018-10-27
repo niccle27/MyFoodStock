@@ -5,6 +5,7 @@ using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.ServiceModel.Web;
 using System.Text;
+using FoodManagerService.Modele;
 
 namespace FoodManagerService
 {
@@ -12,6 +13,13 @@ namespace FoodManagerService
     [ServiceContract]
     public interface IFoodManagerService
     {
-
+        [OperationContract]
+        List<Food> GetFoodList();
+        [OperationContract]
+        void CreateFood(Food food);
+        [OperationContract]
+        void UpdateFood(Food food);
+        [OperationContract]
+        void DeleteFood(Food food);
     }
 }
