@@ -1,0 +1,11 @@
+C:\Users\cleme\source\repos\MyFoodStock\UserService\obj\Debug\UserService.csproj.CoreCompileInputs.cache
+C:\Users\cleme\source\repos\MyFoodStock\UserService\bin\UserService.dll.config
+C:\Users\cleme\source\repos\MyFoodStock\UserService\bin\UserService.dll
+C:\Users\cleme\source\repos\MyFoodStock\UserService\bin\UserService.pdb
+C:\Users\cleme\source\repos\MyFoodStock\UserService\bin\MySql.Data.dll
+C:\Users\cleme\source\repos\MyFoodStock\UserService\bin\Google.Protobuf.dll
+C:\Users\cleme\source\repos\MyFoodStock\UserService\bin\MySql.Data.xml
+C:\Users\cleme\source\repos\MyFoodStock\UserService\obj\Debug\UserService.csproj.CopyComplete
+C:\Users\cleme\source\repos\MyFoodStock\UserService\obj\Debug\UserService.dll
+C:\Users\cleme\source\repos\MyFoodStock\UserService\obj\Debug\UserService.pdb
+C:\Users\cleme\source\repos\MyFoodStock\UserService\obj\Debug\UserService.csprojAssemblyReference.cache

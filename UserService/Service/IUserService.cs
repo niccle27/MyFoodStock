@@ -5,21 +5,23 @@ using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.ServiceModel.Web;
 using System.Text;
-using FoodManagerService.Modele;
 
-namespace FoodManagerService
+namespace UserService
 {
     // NOTE: You can use the "Rename" command on the "Refactor" menu to change the interface name "IService1" in both code and config file together.
     [ServiceContract]
-    public interface IFoodManagerService
+    public interface IUserService
     {
+        #region serviceFunctions
         [OperationContract]
-        List<Food> GetFoodList();
+        string Connect(string userLogin, string userPassword);
+
         [OperationContract]
-        void CreateFood(Food food);
+        string Register(string userLogin, string userPassword);
+
         [OperationContract]
-        void UpdateFood(Food food);
-        [OperationContract]
-        void DeleteFood(Food food);
+        bool IsTokenStillValid(string userLogin, string userToken);
+        #endregion
+
     }
 }
