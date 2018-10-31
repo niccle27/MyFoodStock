@@ -6,34 +6,35 @@ using MySql.Data.MySqlClient;
 
 namespace FoodManagerService
 {
-    /// <summary>
-    /// This class proxy the MySqlConnection in order to make sure that the MySqlConnection instance remain
-    /// unique while avoiding the use of the deprecated Singleton patter which make the code untestable
-    /// using unit test => please use dependency injection instead
-    /// </summary>
-    public class DbConnection
+    public static class DbConnection
     {
-
-        private static MySqlConnection instance;
+        private const string _server = "127.0.0.1";
+        private const string _userId = "root";
+        private const string _password = "";
+        private const string _database = "my_food_stock";
+        private const MySqlSslMode _sslMode = MySqlSslMode.None;
         /// <summary>
-        /// build the MySqlConnection
-        /// throw an exception if the instance is not null
+        /// get static MySqlConnection instance
         /// </summary>
-        public DbConnection()
+        /// <returns>connection to the database</returns>
+        public static MySqlConnection CreateConnection()
         {
-            if (instance != null) throw new Exception("Connection instance are limited to 1 instance, please use dependency injection");
-            instance = new MySqlConnection();
-            MySqlConnectionStringBuilder mySqlConnectionStringBuilder = new MySqlConnectionStringBuilder();
-            mySqlConnectionStringBuilder.Server = "127.0.0.1";
-            mySqlConnectionStringBuilder.UserID = "root";
-            mySqlConnectionStringBuilder.Password = "";
-            mySqlConnectionStringBuilder.Database = "my_food_stock";
-            mySqlConnectionStringBuilder.SslMode = MySqlSslMode.None;
+            MySqlConnection instance = new MySqlConnection();
+            MySqlConnectionStringBuilder mySqlConnectionStringBuilder =
+                new MySqlConnectionStringBuilder
+                {
+                    Server = _server,
+                    UserID = _userId,
+                    Password = _password,
+                    Database = _database,
+                    SslMode = _sslMode
+                };
             try
             {
                 instance.ConnectionString = mySqlConnectionStringBuilder.GetConnectionString(true);
                 Console.WriteLine(instance.ConnectionString);
                 instance.Open();
+                instance.Close();
             }
             catch (MySqlException ex)
             {
@@ -46,15 +47,8 @@ namespace FoodManagerService
                         throw new Exception("Invalid username/password, please try again");
                         break;
                 }
-
             }
-        }
-        /// <summary>
-        /// get static MySqlConnection instance
-        /// </summary>
-        /// <returns>connection to the database</returns>
-        public MySqlConnection GetConnection()
-        {
+
             return instance;
         }
     }

@@ -209,14 +209,14 @@ namespace UserService
             string generatedToken = GenerateTokenHash(userLogin);
             MySqlCommand cmd = new MySqlCommand();
             cmd.Connection = DbConnection;
-            cmd.CommandText = "INSERT INTO users (login,password,token) VALUES (@login,@password,@token)";
+            cmd.CommandText = "INSERT INTO users (login,password) VALUES (@login,@password)";
             cmd.Prepare();
             cmd.Parameters.AddWithValue("@login", userLogin);
             cmd.Parameters.AddWithValue("@password", HashPassword(userPassword));
-            cmd.Parameters.AddWithValue("@token", generatedToken);
+            //cmd.Parameters.AddWithValue("@token", generatedToken);
             cmd.ExecuteNonQuery();
             DbConnection.Close();
-            return generatedToken;
+            return UpdateToken(userLogin);
         }
 
         #endregion
