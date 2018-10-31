@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/FoodManagerService.Modele" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/FoodManagerService.Modele" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="ArrayOfFood">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Food" nillable="true" type="tns:Food" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfFood" nillable="true" type="tns:ArrayOfFood" />
+  <xs:complexType name="Food">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ExpirationDate" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="IdCategory" type="xs:int" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Price" type="xs:int" />
+      <xs:element minOccurs="0" name="Quantity" type="xs:int" />
+      <xs:element minOccurs="0" name="Unit" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Food" nillable="true" type="tns:Food" />
+  <xs:complexType name="Recipe">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Author" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="ImagePath" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TextXml" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Recipe" nillable="true" type="tns:Recipe" />
+  <xs:complexType name="ArrayOfRecipe">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Recipe" nillable="true" type="tns:Recipe" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfRecipe" nillable="true" type="tns:ArrayOfRecipe" />
+</xs:schema>

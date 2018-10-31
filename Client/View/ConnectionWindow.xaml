@@ -1,0 +1,28 @@
+﻿<Window x:Class="Client.View.ConnectionWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Client.View"
+        xmlns:model="clr-namespace:Client.Model"
+        mc:Ignorable="d"
+        Title="Connection"
+        SizeToContent="WidthAndHeight"
+        DataContext="{DynamicResource User}">
+    <Window.Resources>
+        <model:User x:Key="User"/>
+        <Style TargetType="{x:Type Label}">
+            <Setter Property="Margin" Value="3"/>
+        </Style>
+        <Style TargetType="{x:Type TextBox}">
+            <Setter Property="Margin" Value="3"/>
+            <Setter Property="Width" Value="200"/>
+        </Style>
+    </Window.Resources>
+        <UniformGrid Margin="10" Columns="2">
+        <Label Content="Login : "/>
+        <TextBox Text="{Binding Path=Login}"/>
+        <Label Content="Password : "/>
+        <TextBox Text="{Binding Path=Password}"/>
+    </UniformGrid>
+</Window>

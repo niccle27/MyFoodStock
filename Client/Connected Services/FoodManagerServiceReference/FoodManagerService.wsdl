@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="FoodManagerService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="http://localhost:57829/Service/FoodManagerService.svc?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://localhost:57829/Service/FoodManagerService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://localhost:57829/Service/FoodManagerService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/FoodManagerService.Modele" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IFoodManagerService_GetFoodList_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetFoodList" />
+  </wsdl:message>
+  <wsdl:message name="IFoodManagerService_GetFoodList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetFoodListResponse" />
+  </wsdl:message>
+  <wsdl:message name="IFoodManagerService_CreateFood_InputMessage">
+    <wsdl:part name="parameters" element="tns:CreateFood" />
+  </wsdl:message>
+  <wsdl:message name="IFoodManagerService_CreateFood_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CreateFoodResponse" />
+  </wsdl:message>
+  <wsdl:message name="IFoodManagerService_UpdateFood_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateFood" />
+  </wsdl:message>
+  <wsdl:message name="IFoodManagerService_UpdateFood_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateFoodResponse" />
+  </wsdl:message>
+  <wsdl:message name="IFoodManagerService_DeleteFood_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteFood" />
+  </wsdl:message>
+  <wsdl:message name="IFoodManagerService_DeleteFood_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteFoodResponse" />
+  </wsdl:message>
+  <wsdl:message name="IFoodManagerService_CreateRecipe_InputMessage">
+    <wsdl:part name="parameters" element="tns:CreateRecipe" />
+  </wsdl:message>
+  <wsdl:message name="IFoodManagerService_CreateRecipe_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CreateRecipeResponse" />
+  </wsdl:message>
+  <wsdl:message name="IFoodManagerService_GetRecipesList_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetRecipesList" />
+  </wsdl:message>
+  <wsdl:message name="IFoodManagerService_GetRecipesList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetRecipesListResponse" />
+  </wsdl:message>
+  <wsdl:message name="IFoodManagerService_UpdateRecipe_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateRecipe" />
+  </wsdl:message>
+  <wsdl:message name="IFoodManagerService_UpdateRecipe_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateRecipeResponse" />
+  </wsdl:message>
+  <wsdl:message name="IFoodManagerService_DeleteRecipe_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteRecipe" />
+  </wsdl:message>
+  <wsdl:message name="IFoodManagerService_DeleteRecipe_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteRecipeResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IFoodManagerService">
+    <wsdl:operation name="GetFoodList">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFoodManagerService/GetFoodList" message="tns:IFoodManagerService_GetFoodList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IFoodManagerService/GetFoodListResponse" message="tns:IFoodManagerService_GetFoodList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateFood">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFoodManagerService/CreateFood" message="tns:IFoodManagerService_CreateFood_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IFoodManagerService/CreateFoodResponse" message="tns:IFoodManagerService_CreateFood_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateFood">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFoodManagerService/UpdateFood" message="tns:IFoodManagerService_UpdateFood_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IFoodManagerService/UpdateFoodResponse" message="tns:IFoodManagerService_UpdateFood_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteFood">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFoodManagerService/DeleteFood" message="tns:IFoodManagerService_DeleteFood_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IFoodManagerService/DeleteFoodResponse" message="tns:IFoodManagerService_DeleteFood_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateRecipe">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFoodManagerService/CreateRecipe" message="tns:IFoodManagerService_CreateRecipe_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IFoodManagerService/CreateRecipeResponse" message="tns:IFoodManagerService_CreateRecipe_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetRecipesList">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFoodManagerService/GetRecipesList" message="tns:IFoodManagerService_GetRecipesList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IFoodManagerService/GetRecipesListResponse" message="tns:IFoodManagerService_GetRecipesList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateRecipe">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFoodManagerService/UpdateRecipe" message="tns:IFoodManagerService_UpdateRecipe_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IFoodManagerService/UpdateRecipeResponse" message="tns:IFoodManagerService_UpdateRecipe_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteRecipe">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFoodManagerService/DeleteRecipe" message="tns:IFoodManagerService_DeleteRecipe_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IFoodManagerService/DeleteRecipeResponse" message="tns:IFoodManagerService_DeleteRecipe_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_IFoodManagerService" type="tns:IFoodManagerService">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetFoodList">
+      <soap:operation soapAction="http://tempuri.org/IFoodManagerService/GetFoodList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateFood">
+      <soap:operation soapAction="http://tempuri.org/IFoodManagerService/CreateFood" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateFood">
+      <soap:operation soapAction="http://tempuri.org/IFoodManagerService/UpdateFood" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteFood">
+      <soap:operation soapAction="http://tempuri.org/IFoodManagerService/DeleteFood" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateRecipe">
+      <soap:operation soapAction="http://tempuri.org/IFoodManagerService/CreateRecipe" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRecipesList">
+      <soap:operation soapAction="http://tempuri.org/IFoodManagerService/GetRecipesList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateRecipe">
+      <soap:operation soapAction="http://tempuri.org/IFoodManagerService/UpdateRecipe" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteRecipe">
+      <soap:operation soapAction="http://tempuri.org/IFoodManagerService/DeleteRecipe" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="FoodManagerService">
+    <wsdl:port name="BasicHttpBinding_IFoodManagerService" binding="tns:BasicHttpBinding_IFoodManagerService">
+      <soap:address location="http://localhost:57829/Service/FoodManagerService.svc" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,77 @@
+﻿<Window x:Class="Client.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Client"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <DockPanel>
+        <StatusBar DockPanel.Dock="Bottom">
+            <StatusBarItem HorizontalAlignment="Right">
+                <StackPanel Orientation="Horizontal">
+                    <ComboBox>
+                        <ComboBoxItem IsSelected="True">Français</ComboBoxItem>
+                        <ComboBoxItem>English</ComboBoxItem>
+                    </ComboBox>
+                </StackPanel>
+            </StatusBarItem>
+        </StatusBar>
+        <ToolBarTray DockPanel.Dock="Left" Orientation="Vertical">
+            <ToolBar>
+                <Button Content="New Recipe" />
+                <Button Content="New Food" />
+            </ToolBar>
+        </ToolBarTray>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="_Food">
+                <MenuItem Header="_New" />
+                <MenuItem Header="_Save changes" />
+                <MenuItem Header="_Discard changes" />
+            </MenuItem>
+            <MenuItem Header="_Recipe">
+                <MenuItem Header="_New" />
+                <MenuItem Header="_Save changes" />
+                <MenuItem Header="_Discard changes" />
+            </MenuItem>
+            <MenuItem Header="About"/>
+        </Menu>
+        <ListBox Name="InterfaceList" DockPanel.Dock="Left" ItemsSource="{Binding Path=InterfaceList }">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Label Content="{Binding Path=Key}"/>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <!--<ContentControl DataContext="{Binding ElementName=InterfaceList,Path=SelectedItem}" Content="{Binding Value }">
+            <ContentControl.Resources>
+                <DataTemplate DataType="{x:Type local:FoodInterfaceViewModel}">
+                    <StackPanel Orientation="Vertical">
+                        <Label>test food</Label>
+                        <Label Name="test" Content="{Binding Food}"/>
+                    </StackPanel>
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type local:RecipeInterfaceViewModel}">
+                    <StackPanel Orientation="Vertical">
+                        <Label>test recipe</Label>
+                        <Label Name="test" Content="{Binding Recipe}"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ContentControl.Resources>
+        </ContentControl>-->
+        <!--<StackPanel Orientation="Vertical">
+            <StackPanel Orientation="Horizontal">
+                <ComboBox Margin="10,5,10,5">
+                    <ComboBoxItem IsSelected="True">test1</ComboBoxItem>
+                    <ComboBoxItem>test1</ComboBoxItem>
+                    <ComboBoxItem>test1</ComboBoxItem>
+                </ComboBox>
+                <ComboBox Margin="10,5,10,5">
+                    <ComboBoxItem IsSelected="True">test1</ComboBoxItem>
+                    <ComboBoxItem>test1</ComboBoxItem>
+                    <ComboBoxItem>test1</ComboBoxItem>
+                </ComboBox>
+            </StackPanel>
+        </StackPanel>-->
+    </DockPanel>
+</Window>
