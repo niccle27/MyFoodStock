@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="f7644f00-9f63-4cda-95c0-5913ee86a6a9" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:57829/Service/FoodManagerService.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="FoodManagerService.wsdl" MetadataType="Wsdl" ID="ae74da48-a439-4d8b-948a-661349d951f6" SourceId="1" SourceUrl="http://localhost:57829/Service/FoodManagerService.svc?wsdl" />
+    <MetadataFile FileName="FoodManagerService.xsd" MetadataType="Schema" ID="a229c766-778d-401a-839e-e40140009d91" SourceId="1" SourceUrl="http://localhost:57829/Service/FoodManagerService.svc?xsd=xsd0" />
+    <MetadataFile FileName="FoodManagerService1.xsd" MetadataType="Schema" ID="b3e3defa-9ac4-4bf6-bc1d-244de638d763" SourceId="1" SourceUrl="http://localhost:57829/Service/FoodManagerService.svc?xsd=xsd2" />
+    <MetadataFile FileName="FoodManagerService.disco" MetadataType="Disco" ID="20c75469-63c8-4971-bc08-0b5d63e26015" SourceId="1" SourceUrl="http://localhost:57829/Service/FoodManagerService.svc?disco" />
+    <MetadataFile FileName="FoodManagerService2.xsd" MetadataType="Schema" ID="31bcacea-f50b-4423-b175-1f162056934f" SourceId="1" SourceUrl="http://localhost:57829/Service/FoodManagerService.svc?xsd=xsd1" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

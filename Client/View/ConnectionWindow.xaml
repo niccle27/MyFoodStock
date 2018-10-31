@@ -1,0 +1,44 @@
+﻿<Window x:Class="Client.View.ConnectionWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Client.View"
+        xmlns:viewmodel="clr-namespace:Client.ViewModel"
+        xmlns:helper="clr-namespace:Client.Helper"
+        mc:Ignorable="d"
+        Title="Connection"
+        SizeToContent="WidthAndHeight"
+        DataContext="{DynamicResource ConnectionWindowViewModel}">
+    <Window.Resources>
+        <viewmodel:ConnectionWindowViewModel x:Key="ConnectionWindowViewModel"/>
+        <Style TargetType="{x:Type Label}">
+            <Setter Property="Margin" Value="3"/>
+        </Style>
+        <Style TargetType="{x:Type TextBox}">
+            <Setter Property="Margin" Value="3"/>
+            <Setter Property="Width" Value="200"/>
+        </Style>
+        <Style TargetType="{x:Type PasswordBox}">
+            <Setter Property="Margin" Value="3"/>
+            <Setter Property="Width" Value="200"/>
+        </Style>
+    </Window.Resources>
+    <StackPanel Orientation="Vertical">
+        <UniformGrid Margin="10" Columns="2">
+            <Label Content="Login : "/>
+            <TextBox Text="{Binding Path=Login,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <Label Content="Password : "/>
+            <PasswordBox helper:PasswordHelper.Attach="True" 
+                         helper:PasswordHelper.Password="{Binding Password, Mode=TwoWay}"/>
+        </UniformGrid>
+        <Label Content="Failed to connect, password or login incorrect" Foreground="Red" HorizontalAlignment="Center" 
+               Visibility="{Binding ConnectionFailed,Mode=TwoWay,Converter={StaticResource BooleanVisibilityConverter}}"/>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button Margin="3" Padding="10,5,10,5" Content="Connect" Width="auto" HorizontalAlignment="Center" Command="{Binding Path=ConnectionCommand}"/>
+            <Button Margin="3" Padding="10,5,10,5" Content="Reset" Width="auto" HorizontalAlignment="Center" Command="{Binding Path=ResetCommand}"/>
+        </StackPanel>
+
+    </StackPanel>
+
+</Window>

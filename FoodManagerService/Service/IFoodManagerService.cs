@@ -13,13 +13,28 @@ namespace FoodManagerService
     [ServiceContract]
     public interface IFoodManagerService
     {
+        #region food CRUD
+
         [OperationContract]
-        List<Food> GetFoodList();
+        List<Food> GetFoodList(string userToken);
         [OperationContract]
-        void CreateFood(Food food);
+        int? CreateFood(Food food, string userToken);
         [OperationContract]
-        void UpdateFood(Food food);
+        bool? UpdateFood(Food food, string userToken);
         [OperationContract]
-        void DeleteFood(Food food);
+        bool? DeleteFood(Food food, string userToken);
+
+        #endregion
+
+        #region recipe CRUD
+        [OperationContract]
+        int? CreateRecipe(Recipe recipe, string userToken);
+        [OperationContract]
+        List<Recipe> GetRecipesList(string userToken);
+        [OperationContract]
+        bool? UpdateRecipe(Recipe recipe, string userToken);
+        [OperationContract]
+        bool? DeleteRecipe(Recipe recipe, string userToken);
+        #endregion
     }
 }
