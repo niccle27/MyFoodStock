@@ -39,7 +39,9 @@
             <Button Margin="3" Padding="10,5,10,5" Content="Connect" Width="auto" HorizontalAlignment="Center" Command="{Binding Path=ConnectionCommand}"/>
             <Button Margin="3" Padding="10,5,10,5" Content="Reset" Width="auto" HorizontalAlignment="Center" Command="{Binding Path=ResetCommand}"/>
         </StackPanel>
-
+        <Expander Header="Not yet registered ?" Margin="10">
+            <Button Margin="3" Padding="10,5,10,5" Content="Register" Width="auto" HorizontalAlignment="Center" Command="{Binding Path=RegisterCommand}"/>
+        </Expander>
     </StackPanel>
 
 </Window>

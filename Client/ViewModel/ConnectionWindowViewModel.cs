@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Client.AuthenticationServiceReference;
 using Client.Helper;
+using Client.View;
 
 namespace Client.ViewModel
 {
@@ -12,9 +13,17 @@ namespace Client.ViewModel
     {
 
         UserServiceClient userServiceClient = new UserServiceClient();
+
         private string login;
         private string password;
         private bool connectionFailed = false;
+
+        public UserServiceClient UserServiceClient
+        {
+            get => userServiceClient;
+            set => userServiceClient = value;
+        }
+
 
         public bool ConnectionFailed
         {
@@ -74,7 +83,6 @@ namespace Client.ViewModel
             }
         }
         private RelayCommand resetCommand;
-
         /// <summary>
         /// Gets the ResetCommand.
         /// </summary>
@@ -91,6 +99,29 @@ namespace Client.ViewModel
                                ConnectionFailed = false;
                            },
                     (o) => true));
+            }
+        }
+        private RelayCommand registerCommand;
+
+        /// <summary>
+        /// Gets the ResetCommand.
+        /// </summary>
+        public RelayCommand RegisterCommand
+        {
+            get
+            {
+                return registerCommand
+                       ?? (registerCommand = new RelayCommand(
+                           (o) =>
+                           {
+                               var win = new RegisterWindow(new RegisterWindowViewModel()
+                               {
+                                   UserServiceClient = userServiceClient
+                               });
+                               win.Show();
+                               CloseWindow();
+                           },
+                           (o) => true));
             }
         }
     }

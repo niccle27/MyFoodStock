@@ -4,9 +4,11 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Client.View"
+        xmlns:helper="clr-namespace:Client.Helper"
         mc:Ignorable="d"
         Title="RegisterWindow" 
-        SizeToContent="WidthAndHeight">
+        SizeToContent="WidthAndHeight"
+        helper:DialogCloser.DialogResult="{Binding Path=CloseWindowFlag}">
     <Window.Resources>
         <Style TargetType="{x:Type Label}">
             <Setter Property="Margin" Value="3"/>
@@ -16,12 +18,20 @@
             <Setter Property="Width" Value="200"/>
         </Style>
     </Window.Resources>
-    <UniformGrid Margin="10" Columns="2">
-        <Label Content="Login : "/>
-        <TextBox Text="{Binding Path=Login}"/>
-        <Label Content="Password : "/>
-        <TextBox Text="{Binding Path=Password}"/>
-        <Label Content="Confirmed password : "/>
-        <TextBox Text="{Binding Path=Password}"/>
-    </UniformGrid>
+    <StackPanel Orientation="Vertical">
+        <UniformGrid Margin="10" Columns="2">
+            <Label Content="Login : "/>
+            <TextBox Text="{Binding Path=Login,UpdateSourceTrigger=PropertyChanged}"/>
+            <Label Content="Password : "/>
+            <TextBox Text="{Binding Path=Password,UpdateSourceTrigger=PropertyChanged}"/>
+            <Label Content="Confirmed password : "/>
+            <TextBox Text="{Binding Path=ConfirmedPassword,UpdateSourceTrigger=PropertyChanged}"/>
+        </UniformGrid>
+        <Label Content="Passwords don't match" Foreground="Red" HorizontalAlignment="Center" 
+               Visibility="{Binding Path=PasswordsDontMatch,Mode=TwoWay,Converter={StaticResource BooleanVisibilityConverter}}"/>
+        <Label Content="Login has already been taken, please choose another one" Foreground="Red" HorizontalAlignment="Center" 
+               Visibility="{Binding Path=LoginAlreadyTaken,Mode=TwoWay,Converter={StaticResource BooleanVisibilityConverter}}"/>
+        <Button Margin="3" Padding="10,5,10,5" Content="Register" Width="auto" HorizontalAlignment="Center" Command="{Binding Path=RegisterCommand}"/>
+    </StackPanel>
+
 </Window>
