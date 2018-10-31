@@ -69,6 +69,7 @@
     </Compile>
     <Compile Include="Converter\BooleanVisibilityConverter.cs" />
     <Compile Include="Converter\QuantityUnitMultiValueConverter.cs" />
+    <Compile Include="Helper\PasswordHelper.cs" />
     <Compile Include="Helper\RelayCommand.cs" />
     <Compile Include="Model\User.cs" />
     <Compile Include="Properties\Annotations.cs" />
@@ -81,6 +82,7 @@
     <Compile Include="UserControl\GUI\RecipesGUI.xaml.cs">
       <DependentUpon>RecipesGUI.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\ConnectionWindowViewModel.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
     <Compile Include="View\AddFoodWindow.xaml.cs">

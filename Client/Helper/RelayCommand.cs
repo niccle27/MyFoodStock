@@ -11,7 +11,7 @@ namespace Client.Helper
     /// This class is from https://msdn.microsoft.com/en-us/magazine/dn237302.aspx It takes advantage of lambda function in order
     /// to restraint the number of implementing the ICommand interface
     /// </summary>
-    class RelayCommand : ICommand
+    public class RelayCommand : ICommand
     {
         public delegate void ICommandOnExecute(object parameter);
 
