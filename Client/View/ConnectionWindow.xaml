@@ -9,7 +9,8 @@
         mc:Ignorable="d"
         Title="Connection"
         SizeToContent="WidthAndHeight"
-        DataContext="{DynamicResource ConnectionWindowViewModel}">
+        DataContext="{DynamicResource ConnectionWindowViewModel}"
+        helper:DialogCloser.DialogResult="{Binding Path=CloseWindowFlag}">
     <Window.Resources>
         <viewmodel:ConnectionWindowViewModel x:Key="ConnectionWindowViewModel"/>
         <Style TargetType="{x:Type Label}">

@@ -5,7 +5,7 @@
              xmlns:converter="clr-namespace:Client.Converter"
              StartupUri="View/ConnectionWindow.xaml">
     <Application.Resources>
-        <XmlDataProvider x:Key="String" Source="String.xml" XPath="String"/>
+        <XmlDataProvider x:Key="String" Source="Ressources/String.xml" XPath="String"/>
 
         <converter:BooleanVisibilityConverter x:Key="BooleanVisibilityConverter"/>
     </Application.Resources>

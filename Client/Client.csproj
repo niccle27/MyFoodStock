@@ -69,6 +69,7 @@
     </Compile>
     <Compile Include="Converter\BooleanVisibilityConverter.cs" />
     <Compile Include="Converter\QuantityUnitMultiValueConverter.cs" />
+    <Compile Include="Helper\DialogCloser.cs" />
     <Compile Include="Helper\PasswordHelper.cs" />
     <Compile Include="Helper\RelayCommand.cs" />
     <Compile Include="Model\User.cs" />
@@ -221,7 +222,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="String.xml" />
+    <Resource Include="Ressources\String.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

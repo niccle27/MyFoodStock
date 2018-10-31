@@ -63,6 +63,7 @@ namespace Client.ViewModel
                         {
                             ConnectionFailed = false;
                             new MainWindow().Show();
+                            this.CloseWindow();
                         }
                         else
                         {
