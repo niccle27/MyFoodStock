@@ -89,10 +89,10 @@ namespace Client.ViewModel
                     ?? (registerCommand = new RelayCommand(
                            (o) =>
                            {
+                               PasswordsDontMatch = false;
+                               LoginAlreadyTaken = false;
                                if (_password == _confirmedPassword)
                                {
-                                   PasswordsDontMatch = false;
-                                   LoginAlreadyTaken = false;
                                    string token = userServiceClient.Register(_login, _password);
                                    if (token != null)
                                    {

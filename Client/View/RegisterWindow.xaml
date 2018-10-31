@@ -17,15 +17,21 @@
             <Setter Property="Margin" Value="3"/>
             <Setter Property="Width" Value="200"/>
         </Style>
+        <Style TargetType="{x:Type PasswordBox}">
+            <Setter Property="Margin" Value="3"/>
+            <Setter Property="Width" Value="200"/>
+        </Style>
     </Window.Resources>
     <StackPanel Orientation="Vertical">
         <UniformGrid Margin="10" Columns="2">
             <Label Content="Login : "/>
             <TextBox Text="{Binding Path=Login,UpdateSourceTrigger=PropertyChanged}"/>
             <Label Content="Password : "/>
-            <TextBox Text="{Binding Path=Password,UpdateSourceTrigger=PropertyChanged}"/>
+            <PasswordBox helper:PasswordHelper.Attach="True" 
+                         helper:PasswordHelper.Password="{Binding Password, Mode=TwoWay}"/>
             <Label Content="Confirmed password : "/>
-            <TextBox Text="{Binding Path=ConfirmedPassword,UpdateSourceTrigger=PropertyChanged}"/>
+            <PasswordBox helper:PasswordHelper.Attach="True" 
+                         helper:PasswordHelper.Password="{Binding ConfirmedPassword, Mode=TwoWay}"/>
         </UniformGrid>
         <Label Content="Passwords don't match" Foreground="Red" HorizontalAlignment="Center" 
                Visibility="{Binding Path=PasswordsDontMatch,Mode=TwoWay,Converter={StaticResource BooleanVisibilityConverter}}"/>
