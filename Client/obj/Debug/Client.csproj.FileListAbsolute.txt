@@ -20,10 +20,10 @@ C:\Users\cleme\source\repos\MyFoodStock\Client\obj\Debug\View\AddFoodWindow.g.cs
 C:\Users\cleme\source\repos\MyFoodStock\Client\obj\Debug\View\RegisterWindow.g.cs
 C:\Users\cleme\source\repos\MyFoodStock\Client\obj\Debug\View\AddFoodWindow.baml
 C:\Users\cleme\source\repos\MyFoodStock\Client\obj\Debug\View\RegisterWindow.baml
-C:\Users\cleme\source\repos\MyFoodStock\Client\obj\Debug\UserControl\GUI\RecipesGUI.baml
-C:\Users\cleme\source\repos\MyFoodStock\Client\obj\Debug\UserControl\GUI\MyFoodstockGUI.g.cs
-C:\Users\cleme\source\repos\MyFoodStock\Client\obj\Debug\UserControl\GUI\RecipesGUI.g.cs
 C:\Users\cleme\source\repos\MyFoodStock\Client\obj\Debug\App.baml
-C:\Users\cleme\source\repos\MyFoodStock\Client\obj\Debug\UserControl\GUI\MyFoodstockGUI.baml
 C:\Users\cleme\source\repos\MyFoodStock\Client\obj\Debug\UserControl\Datatemplate\RecipeListViewItemTemplate.g.cs
 C:\Users\cleme\source\repos\MyFoodStock\Client\obj\Debug\UserControl\Datatemplate\RecipeListViewItemTemplate.baml
+C:\Users\cleme\source\repos\MyFoodStock\Client\obj\Debug\UserControl\SubView\MainWindowSubView\MyFoodstockSubView.g.cs
+C:\Users\cleme\source\repos\MyFoodStock\Client\obj\Debug\UserControl\SubView\MainWindowSubView\RecipesSubView.g.cs
+C:\Users\cleme\source\repos\MyFoodStock\Client\obj\Debug\UserControl\SubView\MainWindowSubView\MyFoodstockSubView.baml
+C:\Users\cleme\source\repos\MyFoodStock\Client\obj\Debug\UserControl\SubView\MainWindowSubView\RecipesSubView.baml

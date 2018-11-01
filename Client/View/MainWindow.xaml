@@ -4,6 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Client"
+        xmlns:subViewModel="clr-namespace:Client.ViewModel.MainWindowSubViewModel"
+        xmlns:subView="clr-namespace:Client.UserControl.SubView.MainWindowSubView"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <DockPanel>
@@ -19,46 +21,44 @@
         </StatusBar>
         <ToolBarTray DockPanel.Dock="Left" Orientation="Vertical">
             <ToolBar>
-                <Button Content="New Recipe" />
-                <Button Content="New Food" />
+                <Button Width="64" Height="64" Command="{Binding CreateRecipeCommand}">
+                    <Image Source="../Ressources/images/recipe.png" Stretch="UniformToFill"/>
+                </Button>
+                <Button Width="64" Height="64" Command="{Binding CreateFoodCommand}">
+                    <Image Source="../Ressources/images/order-food.png" Stretch="UniformToFill"/>
+                </Button>
             </ToolBar>
         </ToolBarTray>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="_Food">
-                <MenuItem Header="_New" />
+                <MenuItem Header="_New" Command="{Binding CreateFoodCommand}" />
                 <MenuItem Header="_Save changes" />
                 <MenuItem Header="_Discard changes" />
             </MenuItem>
             <MenuItem Header="_Recipe">
-                <MenuItem Header="_New" />
+                <MenuItem Header="_New" Command="{Binding CreateRecipeCommand}"/>
                 <MenuItem Header="_Save changes" />
                 <MenuItem Header="_Discard changes" />
             </MenuItem>
             <MenuItem Header="About"/>
         </Menu>
-        <ListBox Name="InterfaceList" DockPanel.Dock="Left" ItemsSource="{Binding Path=InterfaceList }">
+        <ListBox Name="InterfaceList" DockPanel.Dock="Left" ItemsSource="{Binding Path=SubViewDictionary }">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Label Content="{Binding Path=Key}"/>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <!--<ContentControl DataContext="{Binding ElementName=InterfaceList,Path=SelectedItem}" Content="{Binding Value }">
+        <ContentControl DataContext="{Binding ElementName=InterfaceList,Path=SelectedItem}" Content="{Binding Value }">
             <ContentControl.Resources>
-                <DataTemplate DataType="{x:Type local:FoodInterfaceViewModel}">
-                    <StackPanel Orientation="Vertical">
-                        <Label>test food</Label>
-                        <Label Name="test" Content="{Binding Food}"/>
-                    </StackPanel>
+                <DataTemplate DataType="{x:Type subViewModel:MyFoodstockSubViewModel}">
+                    <subView:MyFoodstockGUI/>
                 </DataTemplate>
-                <DataTemplate DataType="{x:Type local:RecipeInterfaceViewModel}">
-                    <StackPanel Orientation="Vertical">
-                        <Label>test recipe</Label>
-                        <Label Name="test" Content="{Binding Recipe}"/>
-                    </StackPanel>
+                <DataTemplate DataType="{x:Type subViewModel:RecipesSubViewModel}">
+                    <subView:RecipesGUI/>
                 </DataTemplate>
             </ContentControl.Resources>
-        </ContentControl>-->
+        </ContentControl>
         <!--<StackPanel Orientation="Vertical">
             <StackPanel Orientation="Horizontal">
                 <ComboBox Margin="10,5,10,5">

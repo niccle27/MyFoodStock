@@ -175,6 +175,9 @@ namespace Client.FoodManagerServiceReference {
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string TextXmlField;
         
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string TitleField;
+        
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
             get {
@@ -233,6 +236,19 @@ namespace Client.FoodManagerServiceReference {
                 if ((object.ReferenceEquals(this.TextXmlField, value) != true)) {
                     this.TextXmlField = value;
                     this.RaisePropertyChanged("TextXml");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Title {
+            get {
+                return this.TitleField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TitleField, value) != true)) {
+                    this.TitleField = value;
+                    this.RaisePropertyChanged("Title");
                 }
             }
         }

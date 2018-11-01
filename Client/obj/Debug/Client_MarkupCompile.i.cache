@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\cleme\source\repos\MyFoodStock\Client\App.xaml
-7-1859723356
+71063118327
 
-2891447076
+312084603402
 15503363256
-UserControl\Datatemplate\RecipeListViewItemTemplate.xaml;UserControl\GUI\MyFoodstockGUI.xaml;UserControl\GUI\RecipesGUI.xaml;View\AddFoodWindow.xaml;View\ConnectionWindow.xaml;View\MainWindow.xaml;View\RegisterWindow.xaml;
+UserControl\Datatemplate\RecipeListViewItemTemplate.xaml;UserControl\SubView\MainWindowSubView\MyFoodstockSubView.xaml;UserControl\SubView\MainWindowSubView\RecipesSubView.xaml;View\AddFoodWindow.xaml;View\ConnectionWindow.xaml;View\MainWindow.xaml;View\RegisterWindow.xaml;
 
-True
+False
 

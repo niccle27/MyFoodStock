@@ -24,6 +24,7 @@ namespace FoodManagerService.Database
             {
                 Connection = _connection,
                 CommandText = "SELECT recipes.id AS id," +
+                              "title," +
                               "text_xml," +
                               "picture_path," +
                               "login AS author" +
@@ -36,6 +37,7 @@ namespace FoodManagerService.Database
                 {
                     Author = reader.GetString("author"),
                     Id = reader.GetInt32("id"),
+                    Title = reader.GetString("title"),
                     ImagePath = reader.GetString("picture_path"),
                     TextXml = reader.GetString("text_xml")
                 });
@@ -50,10 +52,11 @@ namespace FoodManagerService.Database
             MySqlCommand cmd = new MySqlCommand()
             {
                 Connection = _connection,
-                CommandText = "INSERT INTO recipes(text_xml, picture_path, id_user)" +
-                              " VALUES (@text_xml, @picture_path, @id_user)"
+                CommandText = "INSERT INTO recipes(title, text_xml, picture_path, id_user)" +
+                              " VALUES (@title, @text_xml, @picture_path, @id_user)"
             };
             cmd.Prepare();
+            cmd.Parameters.AddWithValue("@title", recipe.Title);
             cmd.Parameters.AddWithValue("@text_xml", recipe.TextXml);
             cmd.Parameters.AddWithValue("@picture_path", recipe.ImagePath);
             cmd.Parameters.AddWithValue("@id_user", idUser);
@@ -71,11 +74,13 @@ namespace FoodManagerService.Database
             {
                 Connection = _connection,
                 CommandText = "UPDATE recipes SET " +
+                              "title = @title" +
                               "text_xml = @text_xml" +
                               ",picture_path = @picture_path" +
                               " WHERE id = @id AND id_user = @id_user"
             };
             cmd.Prepare();
+            cmd.Parameters.AddWithValue("@title", recipe.Title);
             cmd.Parameters.AddWithValue("@text_xml", recipe.TextXml);
             cmd.Parameters.AddWithValue("@picture_path", recipe.ImagePath);
             cmd.Parameters.AddWithValue("@id", recipe.Id);

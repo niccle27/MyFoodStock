@@ -3,9 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:Client"
              xmlns:converter="clr-namespace:Client.Converter"
-             StartupUri="View/ConnectionWindow.xaml">
+             StartupUri="View/MainWindow.xaml">
     <Application.Resources>
-        <XmlDataProvider x:Key="String" Source="Ressources/String.xml" XPath="String"/>
+        <XmlDataProvider x:Key="String" Source="Ressources/XML/String.xml" XPath="String"/>
 
         <converter:BooleanVisibilityConverter x:Key="BooleanVisibilityConverter"/>
     </Application.Resources>

@@ -24,6 +24,7 @@
       <xs:element minOccurs="0" name="Id" type="xs:int" />
       <xs:element minOccurs="0" name="ImagePath" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TextXml" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Title" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="Recipe" nillable="true" type="tns:Recipe" />
