@@ -35,6 +35,7 @@ namespace FoodManagerService.Database
                     Id = reader.GetInt32("id"),
                     ExpirationDate = reader.GetDateTime("expiration_date"),
                     IdCategory = reader.GetInt32("id_category"),
+                    IdSubCategory = reader.GetInt32("id_sub_category"),
                     Name = reader.GetString("name"),
                     Unit = reader.GetString("unit"),
                     Quantity = reader.GetInt32("quantity"),
@@ -52,11 +53,12 @@ namespace FoodManagerService.Database
             {
                 Connection = _connection,
                 CommandText =
-                    "INSERT INTO  foodstuffs ( id_category ,  name ,  quantity ,  unit ,  id_user ,  expiration_date, price )" +
-                    " VALUES (@id_category ,  @name ,  @quantity ,  @unit ,  @id_user ,  @expiration_date, @price)"
+                    "INSERT INTO  foodstuffs ( id_category ,id_sub_category,  name ,  quantity ,  unit ,  id_user ,  expiration_date, price )" +
+                    " VALUES (@id_category, @id_sub_category ,@name ,  @quantity ,  @unit ,  @id_user ,  @expiration_date, @price)"
             };
             cmd.Prepare();
             cmd.Parameters.AddWithValue("@id_category", food.IdCategory);
+            cmd.Parameters.AddWithValue("@id_sub_category", food.IdSubCategory);
             cmd.Parameters.AddWithValue("@name", food.Name);
             cmd.Parameters.AddWithValue("@quantity", food.Quantity);
             cmd.Parameters.AddWithValue("@unit", food.Unit);
@@ -76,7 +78,9 @@ namespace FoodManagerService.Database
             MySqlCommand cmd = new MySqlCommand
             {
                 Connection = _connection,
-                CommandText = "UPDATE  foodstuffs  SET  id_category = @id_category" +
+                CommandText = "UPDATE  foodstuffs  SET  " +
+                              "id_category = @id_category" +
+                              ", id_sub_category = @id_sub_category" +
                               ", name = @name" +
                               ", quantity = @quantity" +
                               ", unit = @unit" +
@@ -86,6 +90,7 @@ namespace FoodManagerService.Database
             };
             cmd.Prepare();
             cmd.Parameters.AddWithValue("@id_category", food.IdCategory);
+            cmd.Parameters.AddWithValue("@id_sub_category", food.IdSubCategory);
             cmd.Parameters.AddWithValue("@name", food.Name);
             cmd.Parameters.AddWithValue("@quantity", food.Quantity);
             cmd.Parameters.AddWithValue("@unit", food.Unit);

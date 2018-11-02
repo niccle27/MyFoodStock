@@ -11,6 +11,7 @@
       <xs:element minOccurs="0" name="ExpirationDate" type="xs:dateTime" />
       <xs:element minOccurs="0" name="Id" type="xs:int" />
       <xs:element minOccurs="0" name="IdCategory" type="xs:int" />
+      <xs:element minOccurs="0" name="IdSubCategory" type="xs:int" />
       <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Price" type="xs:int" />
       <xs:element minOccurs="0" name="Quantity" type="xs:int" />

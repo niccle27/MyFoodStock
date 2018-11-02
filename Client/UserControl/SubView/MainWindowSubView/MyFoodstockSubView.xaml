@@ -7,6 +7,12 @@
              xmlns:converter="clr-namespace:Client.Converter"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <Style TargetType="{x:Type ComboBox}">
+            <Setter Property="Margin" Value="0,0,20,0"/>
+            <Setter Property="Width" Value="120"/>
+        </Style>
+    </UserControl.Resources>
     <StackPanel Orientation="Vertical">
         <Grid>
             <Grid.ColumnDefinitions>
@@ -14,8 +20,8 @@
                 <ColumnDefinition Width="auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <ComboBox Grid.Column="0"/>
-            <ComboBox Grid.Column="1"/>
+            <ComboBox Name="Categories" Grid.Column="0" ItemsSource="{Binding Path=ListFoodCategoryAndSubs}" DisplayMemberPath="Name" />
+            <ComboBox Name="SubCategories" Grid.Column="1" ItemsSource="{Binding ElementName=Categories,Path=SelectedItem.SubCategory}" DisplayMemberPath="Key"/>
         </Grid>
         <ListView ItemsSource="{Binding Path=ListFoods}">
             <ListView.Resources>

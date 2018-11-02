@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,6 +13,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Client.FoodManagerServiceReference;
+using Client.ViewModel;
+
 namespace Client.View
 {
     /// <summary>
@@ -21,6 +26,7 @@ namespace Client.View
         public AddFoodWindow()
         {
             InitializeComponent();
+            DataContext = new AddFoodWindowViewModel();
         }
     }
 }

@@ -4,6 +4,8 @@
              xmlns:local="clr-namespace:Client"
              xmlns:converter="clr-namespace:Client.Converter"
              StartupUri="View/MainWindow.xaml">
+             <!--StartupUri="View/MainWindow.xaml"-->
+             
     <Application.Resources>
         <XmlDataProvider x:Key="String" Source="Ressources/XML/String.xml" XPath="String"/>
 

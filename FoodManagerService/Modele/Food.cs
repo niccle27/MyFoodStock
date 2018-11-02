@@ -16,17 +16,9 @@ namespace FoodManagerService.Modele
         private string _unit;
         private int _id;
         private int _idCategory;
-        //todo delete le constructeur avec paramètre si je vois que j'en ai plus besoin
-        /*public Food(int id, int idCategory, string name, int quantity, DateTime expirationDate, int price, string unit)
-        {
-            Id = id;
-            IdCategory = idCategory;
-            Name = name;
-            Quantity = quantity;
-            ExpirationDate = expirationDate;
-            Price = price;
-            Unit = unit;
-        }*/
+        private int _idSubCategory;
+
+
 
         public Food()
         {
@@ -36,6 +28,8 @@ namespace FoodManagerService.Modele
         public int Id { get => _id; set => _id = value; }
         [DataMember]
         public int IdCategory { get => _idCategory; set => _idCategory = value; }
+        [DataMember]
+        public int IdSubCategory { get => _idSubCategory; set => _idSubCategory = value; }
         [DataMember]
         public String Name { get => _name; set => _name = value; }
         [DataMember]

@@ -5,11 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Xml.Linq;
 using Client.AuthenticationServiceReference;
 using Client.FoodManagerServiceReference;
 using Client.Helper;
 using Client.Model;
 using Client.ViewModel.MainWindowSubViewModel;
+using UserService.Modele;
 
 namespace Client.ViewModel
 {
@@ -17,6 +19,8 @@ namespace Client.ViewModel
     {
 
         #region private fields
+        FoodCategoriesAndSubsLoader _foodCategoriesAndSubsLoader = new FoodCategoriesAndSubsLoader();
+
         private User user;
 
         private UserServiceClient _userServiceClient = new UserServiceClient();
@@ -24,6 +28,9 @@ namespace Client.ViewModel
 
         private ObservableCollection<Recipe> _listRecipes;
         private ObservableCollection<Food> _listFoods;
+        private List<FoodCategoryAndSubs> _listFoodCategoryAndSubs;
+
+
 
         private Dictionary<string, MainWindowSubViewModelBase> _subViewDictionary;
 
@@ -35,6 +42,9 @@ namespace Client.ViewModel
                 Password = "admin",
                 Token = "D9812AB5CCF25FC28FC4985BB9D75685"
             };
+            ListFoodCategoryAndSubs = _foodCategoriesAndSubsLoader.GetCategoriesList(
+                XElement.Load(@"C:\Users\cleme\source\repos\MyFoodStock\Client\Ressources\XML\Categories.xml"));
+
             var list = FoodManagerServiceClient.GetRecipesList(User.Token);
             ObservableListFoods = new ObservableCollection<Food>(FoodManagerServiceClient.GetFoodList(User.Token));
             ObservableListRecipes = new ObservableCollection<Recipe>(list);
@@ -43,7 +53,8 @@ namespace Client.ViewModel
                 {
                     "MyFoodstock",new MyFoodstockSubViewModel()
                     {
-                        ListFoods = ObservableListFoods
+                        ListFoods = ObservableListFoods,
+                        ListFoodCategoryAndSubs = ListFoodCategoryAndSubs
                     }
                 },
                 {
@@ -53,7 +64,6 @@ namespace Client.ViewModel
                     }
                 }
             };
-
         }
         //Dictionary<string, InterfaceViewModel> _interfaceList = new Dictionary<string, InterfaceViewModel>();
 
@@ -99,6 +109,11 @@ namespace Client.ViewModel
         {
             get => _listFoods;
             set => _listFoods = value;
+        }
+        public List<FoodCategoryAndSubs> ListFoodCategoryAndSubs
+        {
+            get => _listFoodCategoryAndSubs;
+            set => _listFoodCategoryAndSubs = value;
         }
         #endregion
 
@@ -146,9 +161,31 @@ namespace Client.ViewModel
 
         #region nested class
 
-        private static class Loader
+        private  class FoodCategoriesAndSubsLoader
         {
-
+            public List<FoodCategoryAndSubs> GetCategoriesList(XElement categoriesXML)
+            {
+                List<FoodCategoryAndSubs> categoriesList = new List<FoodCategoryAndSubs>();
+                List<XElement> categoriesXElement = (from category in categoriesXML.Descendants() select category).ToList();
+                foreach (var category in categoriesXElement)
+                {
+                    Dictionary<string, int> subCategories = new Dictionary<string, int>();
+                    var subCategoriesXElement = from subCategory in category.Attributes()
+                        where subCategory.Name != "Id"
+                        select subCategory;
+                    foreach (var attribute in subCategoriesXElement)
+                    {
+                        subCategories.Add(attribute.Name.ToString(), int.Parse(attribute.Value));
+                    }
+                    categoriesList.Add(new FoodCategoryAndSubs()
+                    {
+                        Name = category.Value,
+                        Id = int.Parse(category.Attribute("Id").Value.ToString()),
+                        SubCategory = subCategories
+                    });
+                }
+                return categoriesList;
+            }
         }
 
         #endregion

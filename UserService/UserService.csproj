@@ -69,6 +69,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Database\DbConnection.cs" />
+    <Compile Include="Database\IDao.cs" />
+    <Compile Include="Database\UserDAO.cs" />
+    <Compile Include="Helper\HashGenerator.cs" />
+    <Compile Include="Helper\Validator.cs" />
+    <Compile Include="Modele\User.cs" />
     <Compile Include="Service\UserService.svc.cs">
       <DependentUpon>UserService.svc</DependentUpon>
     </Compile>
@@ -77,7 +82,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Modele\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Web.Debug.config">

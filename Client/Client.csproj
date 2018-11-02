@@ -72,7 +72,7 @@
     <Compile Include="Helper\DialogCloser.cs" />
     <Compile Include="Helper\PasswordHelper.cs" />
     <Compile Include="Helper\RelayCommand.cs" />
-    <Compile Include="Model\User.cs" />
+    <Compile Include="Model\FoodCategoryAndSubs.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="UserControl\Datatemplate\RecipeListViewItemTemplate.xaml.cs">
       <DependentUpon>RecipeListViewItemTemplate.xaml</DependentUpon>
@@ -83,6 +83,7 @@
     <Compile Include="UserControl\SubView\MainWindowSubView\RecipesSubView.xaml.cs">
       <DependentUpon>RecipesSubView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\AddFoodWindowViewModel.cs" />
     <Compile Include="ViewModel\ConnectionWindowViewModel.cs" />
     <Compile Include="ViewModel\MainWindowSubViewModel\MainWindowSubViewModelBase.cs" />
     <Compile Include="ViewModel\MainWindowSubViewModel\MyFoodstockSubViewModel.cs" />
@@ -231,6 +232,15 @@
   <ItemGroup>
     <Resource Include="Ressources\images\order-food.png" />
     <Resource Include="Ressources\images\recipe.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\UserService\UserService.csproj">
+      <Project>{E0150373-365A-4028-965B-DA062E085307}</Project>
+      <Name>UserService</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Ressources\XML\Categories.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

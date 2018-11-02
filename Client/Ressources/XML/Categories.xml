@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Categories>
+  <Fruits Id="1" Fresh="1" Canned="2" Frozen="3" Dried="4">Fruits</Fruits>
+  <Vegetables Id="2" Fresh="1" Canned="2" Frozen="3" Dried="4">Vegetables</Vegetables>
+  <Meats Id="3" Fresh="1" Canned="2" Frozen="3" Dried="4">Meats</Meats>
+  <Fish Id="4" Fresh="1" Canned="2" Frozen="3" Dried="4">Fish</Fish>
+  <DairyProducts Id="5" Fresh="1" Canned="2" Frozen="3">Dairy Products</DairyProducts>
+  <StarchyFoods Id="6" Fresh="1" Dried="4">Starchy Foods</StarchyFoods>
+  <Snacks Id="7" Fresh="1" Canned="2" Frozen="3" Dried="4">Snacks</Snacks>
+  <Drinks Id="8" Fresh="1" Canned="2" Dried="4">Drinks</Drinks>
+  <Sauces Id="9" Fresh="1" Canned="2" Frozen="3" Dried="4">Sauces</Sauces>
+  <Seasonings Id="10" Fresh="1" Frozen="3" Dried="4">Seasonings</Seasonings>
+  <Fats Id="11" Fresh="1" Frozen="3">Fats</Fats>
+  <Miscellaneous Id="12" Fresh="1" Canned="2" Frozen="3" Dried="4">Miscellaneous</Miscellaneous>
+</Categories>

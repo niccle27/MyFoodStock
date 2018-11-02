@@ -32,6 +32,9 @@ namespace Client.FoodManagerServiceReference {
         private int IdCategoryField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int IdSubCategoryField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string NameField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -88,6 +91,19 @@ namespace Client.FoodManagerServiceReference {
                 if ((this.IdCategoryField.Equals(value) != true)) {
                     this.IdCategoryField = value;
                     this.RaisePropertyChanged("IdCategory");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int IdSubCategory {
+            get {
+                return this.IdSubCategoryField;
+            }
+            set {
+                if ((this.IdSubCategoryField.Equals(value) != true)) {
+                    this.IdSubCategoryField = value;
+                    this.RaisePropertyChanged("IdSubCategory");
                 }
             }
         }

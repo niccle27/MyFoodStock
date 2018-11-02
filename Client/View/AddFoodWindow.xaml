@@ -9,7 +9,6 @@
         Title="Add Food" 
         SizeToContent="WidthAndHeight">
     <Window.Resources>
-        <foodManagerServiceReference:Food x:Key="Food"/>
         <Style TargetType="{x:Type Label}">
             <Setter Property="Margin" Value="3"/>
         </Style>
@@ -23,20 +22,26 @@
             <Setter Property="Margin" Value="3"/>
         </Style>
     </Window.Resources>
-    <UniformGrid Margin="10" Columns="2">
-        <Label Content="Name : "/>
-        <TextBox Text="{Binding Path=Name}"/>
-        <Label Content="Quantity : "/>
-        <StackPanel Orientation="Horizontal">
-            <TextBox Width="50" Text="{Binding Path=Quantity}"/>
-            <Label Content="Unit : "/>
-            <TextBox Width="30" Text="{Binding Path=Unit}"/>
+    <StackPanel Orientation="Vertical">
+        <UniformGrid Margin="10" Columns="2">
+            <Label Content="Name : "/>
+            <TextBox Text="{Binding Path=Name,Mode=TwoWay}"/>
+            <Label Content="Quantity : "/>
+            <StackPanel Orientation="Horizontal">
+                <TextBox Width="50" Text="{Binding Path=Quantity,Mode=TwoWay}"/>
+                <Label Content="Unit : "/>
+                <TextBox Width="30" Text="{Binding Path=Unit,Mode=TwoWay}"/>
+            </StackPanel>
+            <Label Content="Category"/>
+            <ComboBox/>
+            <Label Content="Subcategory"/>
+            <ComboBox/>
+            <Label Content="Expiration Date"/>
+            <DatePicker SelectedDate="{Binding Path=ExpirationDate,Mode=TwoWay}" />
+        </UniformGrid>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button  Content="Create Food" Padding="10,5,10,5" Margin="10,0,10,10" Command="{Binding Path=CreateFoodCommand}"/>
         </StackPanel>
-        <Label Content="Category"/>
-        <ComboBox />
-        <Label Content="Subcategory"/>
-        <ComboBox/>
-        <Label Content="Expiration Date"/>
-        <DatePicker SelectedDate="{Binding Path=ExpirationDate}" />
-    </UniformGrid>
+    </StackPanel>
+
 </Window>
