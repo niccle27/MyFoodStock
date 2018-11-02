@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Data;
 using Client.FoodManagerServiceReference;
 using Client.Model;
 
@@ -27,13 +28,21 @@ namespace Client.ViewModel.MainWindowSubViewModel
         public FoodCategoryAndSubs SelectedCategory
         {
             get => _selectedCategory;
-            set => _selectedCategory = value;
+            set
+            {
+                _selectedCategory = value;
+                ApplyFilterOnView(ListFoods);
+            }
         }
 
         public KeyValuePair<string, int> SelectedSubCategory
         {
             get => _selectedSubCategory;
-            set => _selectedSubCategory = value;
+            set
+            {
+                _selectedSubCategory = value;
+                ApplyFilterOnView(ListFoods);
+            }
         }
 
 
@@ -48,5 +57,32 @@ namespace Client.ViewModel.MainWindowSubViewModel
             get => _listFoods;
             set => _listFoods = value;
         }
+
+        #region Filter
+
+        private void ApplyFilterOnView(ObservableCollection<Food> listFoods)
+        {
+            CollectionView view = (CollectionView) CollectionViewSource.GetDefaultView(listFoods);
+            view.Filter = FoodFilter;
+        }
+        private bool FoodFilter(object item)
+        {
+            var food = item as Food;
+            if (food != null)
+            {
+                if (food.IdCategory == SelectedCategory.Id && food.IdSubCategory == SelectedSubCategory.Value)
+                    return true;
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        #endregion
     }
 }
