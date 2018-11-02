@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Client.AuthenticationServiceReference;
 using Client.Helper;
 using Client.View;
+using UserService.Modele;
 
 namespace Client.ViewModel
 {
@@ -67,11 +68,17 @@ namespace Client.ViewModel
                     ?? (connectionCommand = new RelayCommand(
                     (o) =>
                     {
-                        string result = userServiceClient.Connect(Login,Password);
-                        if (result != null)
+                        string token = userServiceClient.Connect(Login,Password);
+                        if (token != null)
                         {
                             ConnectionFailed = false;
-                            new MainWindow().Show();
+                            User user = new User()
+                            {
+                                Login = Login,
+                                Password = Password,
+                                Token = token
+                            };
+                            new MainWindow(user).Show();
                             this.CloseWindow();
                         }
                         else

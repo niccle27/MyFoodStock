@@ -11,8 +11,23 @@ namespace Client.ViewModel.MainWindowSubViewModel
 {
     public class MyFoodstockSubViewModel:MainWindowSubViewModelBase
     {
+        private FoodCategoryAndSubs _selectedCategory;
+        private KeyValuePair<string,int> _selectedSubCategory;
         private ObservableCollection<Food> _listFoods;
         private List<FoodCategoryAndSubs> _listFoodCategoryAndSubs;
+        //TODO filtering : https://dzone.com/articles/filtering-mvvm-architecture
+        public FoodCategoryAndSubs SelectedCategory
+        {
+            get => _selectedCategory;
+            set => _selectedCategory = value;
+        }
+
+        public KeyValuePair<string, int> SelectedSubCategory
+        {
+            get => _selectedSubCategory;
+            set => _selectedSubCategory = value;
+        }
+
 
         public List<FoodCategoryAndSubs> ListFoodCategoryAndSubs
         {

@@ -17,38 +17,22 @@ namespace Client.ViewModel
 {
     public class MainWindowViewModel: ViewModelBase
     {
-
-        #region private fields
-        FoodCategoriesAndSubsLoader _foodCategoriesAndSubsLoader = new FoodCategoriesAndSubsLoader();
-
-        private User user;
-
-        private UserServiceClient _userServiceClient = new UserServiceClient();
-        private FoodManagerServiceClient _foodManagerServiceClient = new FoodManagerServiceClient();
-
-        private ObservableCollection<Recipe> _listRecipes;
-        private ObservableCollection<Food> _listFoods;
-        private List<FoodCategoryAndSubs> _listFoodCategoryAndSubs;
-
-
-
-        private Dictionary<string, MainWindowSubViewModelBase> _subViewDictionary;
-
         public MainWindowViewModel(User mUser)
         {
-            User=new User()
+            User defaultUser = new User()//todo delete si plus besoin
             {
                 Login = "admin",
                 Password = "admin",
                 Token = "D9812AB5CCF25FC28FC4985BB9D75685"
             };
+            User = (mUser==null)?defaultUser:mUser;
             ListFoodCategoryAndSubs = _foodCategoriesAndSubsLoader.GetCategoriesList(
                 XElement.Load(@"C:\Users\cleme\source\repos\MyFoodStock\Client\Ressources\XML\Categories.xml"));
 
             var list = FoodManagerServiceClient.GetRecipesList(User.Token);
             ObservableListFoods = new ObservableCollection<Food>(FoodManagerServiceClient.GetFoodList(User.Token));
             ObservableListRecipes = new ObservableCollection<Recipe>(list);
-            SubViewDictionary=new Dictionary<string, MainWindowSubViewModelBase>()
+            SubViewDictionary = new Dictionary<string, MainWindowSubViewModelBase>()
             {
                 {
                     "MyFoodstock",new MyFoodstockSubViewModel()
@@ -65,10 +49,19 @@ namespace Client.ViewModel
                 }
             };
         }
-        //Dictionary<string, InterfaceViewModel> _interfaceList = new Dictionary<string, InterfaceViewModel>();
+        #region private fields
+        FoodCategoriesAndSubsLoader _foodCategoriesAndSubsLoader = new FoodCategoriesAndSubsLoader();
 
-        
-        
+        private User user;
+
+        private UserServiceClient _userServiceClient = new UserServiceClient();
+        private FoodManagerServiceClient _foodManagerServiceClient = new FoodManagerServiceClient();
+
+        private ObservableCollection<Recipe> _listRecipes;
+        private ObservableCollection<Food> _listFoods;
+        private List<FoodCategoryAndSubs> _listFoodCategoryAndSubs;
+
+        private Dictionary<string, MainWindowSubViewModelBase> _subViewDictionary;
         #endregion
 
         #region Services

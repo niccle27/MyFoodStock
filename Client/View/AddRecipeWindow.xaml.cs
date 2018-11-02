@@ -10,27 +10,18 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Client.ViewModel;
-using UserService.Modele;
 
-namespace Client
+namespace Client.View
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for AddRecipeWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class AddRecipeWindow : Window
     {
-        public MainWindow(User user)
+        public AddRecipeWindow()
         {
             InitializeComponent();
-            DataContext = new MainWindowViewModel(user);
-        }
-        public MainWindow()
-        {
-            InitializeComponent();
-            DataContext = new MainWindowViewModel(null);
         }
     }
 }

@@ -84,6 +84,7 @@
       <DependentUpon>RecipesSubView.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\AddFoodWindowViewModel.cs" />
+    <Compile Include="ViewModel\AddRecipeWindowViewModel.cs" />
     <Compile Include="ViewModel\ConnectionWindowViewModel.cs" />
     <Compile Include="ViewModel\MainWindowSubViewModel\MainWindowSubViewModelBase.cs" />
     <Compile Include="ViewModel\MainWindowSubViewModel\MyFoodstockSubViewModel.cs" />
@@ -93,6 +94,9 @@
     <Compile Include="ViewModel\ViewModelBase.cs" />
     <Compile Include="View\AddFoodWindow.xaml.cs">
       <DependentUpon>AddFoodWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\AddRecipeWindow.xaml.cs">
+      <DependentUpon>AddRecipeWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\RegisterWindow.xaml.cs">
       <DependentUpon>RegisterWindow.xaml</DependentUpon>
@@ -110,6 +114,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\AddFoodWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\AddRecipeWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

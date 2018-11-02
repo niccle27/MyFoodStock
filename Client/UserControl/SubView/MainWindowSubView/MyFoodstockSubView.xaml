@@ -20,8 +20,14 @@
                 <ColumnDefinition Width="auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <ComboBox Name="Categories" Grid.Column="0" ItemsSource="{Binding Path=ListFoodCategoryAndSubs}" DisplayMemberPath="Name" />
-            <ComboBox Name="SubCategories" Grid.Column="1" ItemsSource="{Binding ElementName=Categories,Path=SelectedItem.SubCategory}" DisplayMemberPath="Key"/>
+            <ComboBox Name="Categories" Grid.Column="0"
+                      ItemsSource="{Binding Path=ListFoodCategoryAndSubs}"
+                      DisplayMemberPath="Name"
+                      SelectedItem="{Binding Path=SelectedCategory}"/>
+            <ComboBox Name="SubCategories" Grid.Column="1"
+                      ItemsSource="{Binding ElementName=Categories,Path=SelectedItem.SubCategory}"
+                      DisplayMemberPath="Key"
+                      SelectedItem="{Binding Path=SelectedSubCategory}"/>
         </Grid>
         <ListView ItemsSource="{Binding Path=ListFoods}">
             <ListView.Resources>

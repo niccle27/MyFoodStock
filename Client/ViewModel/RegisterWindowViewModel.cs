@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Client.AuthenticationServiceReference;
 using Client.Helper;
+using UserService.Modele;
 
 namespace Client.ViewModel
 {
@@ -96,7 +97,13 @@ namespace Client.ViewModel
                                    string token = userServiceClient.Register(_login, _password);
                                    if (token != null)
                                    {
-                                       new MainWindow().Show();
+                                       User user = new User()
+                                       {
+                                           Login = Login,
+                                           Password = Password,
+                                           Token = token
+                                       };
+                                       new MainWindow(user).Show();
                                        CloseWindow();
                                    }
                                    else

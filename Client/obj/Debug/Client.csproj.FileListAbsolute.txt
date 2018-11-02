@@ -34,3 +34,5 @@ C:\Users\cleme\source\repos\MyFoodStock\Client\bin\Debug\UserService.pdb
 C:\Users\cleme\source\repos\MyFoodStock\Client\bin\Debug\UserService.dll.config
 C:\Users\cleme\source\repos\MyFoodStock\Client\bin\Debug\MySql.Data.xml
 C:\Users\cleme\source\repos\MyFoodStock\Client\obj\Debug\Client.csproj.CopyComplete
+C:\Users\cleme\source\repos\MyFoodStock\Client\obj\Debug\View\AddRecipeWindow.g.cs
+C:\Users\cleme\source\repos\MyFoodStock\Client\obj\Debug\View\AddRecipeWindow.baml
