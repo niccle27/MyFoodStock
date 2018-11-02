@@ -23,11 +23,11 @@
             <ComboBox Name="Categories" Grid.Column="0"
                       ItemsSource="{Binding Path=ListFoodCategoryAndSubs}"
                       DisplayMemberPath="Name"
-                      SelectedItem="{Binding Path=SelectedCategory}"/>
+                      SelectedItem="{Binding Path=SelectedCategory,Mode=TwoWay}"/>
             <ComboBox Name="SubCategories" Grid.Column="1"
                       ItemsSource="{Binding ElementName=Categories,Path=SelectedItem.SubCategory}"
                       DisplayMemberPath="Key"
-                      SelectedItem="{Binding Path=SelectedSubCategory}"/>
+                      SelectedItem="{Binding Path=SelectedSubCategory,Mode=TwoWay}"/>
         </Grid>
         <ListView ItemsSource="{Binding Path=ListFoods}">
             <ListView.Resources>

@@ -19,7 +19,7 @@ namespace Client.ViewModel
     {
         public MainWindowViewModel(User mUser)
         {
-            User defaultUser = new User()//todo delete si plus besoin
+            User defaultUser = new User()//todo delete en production 
             {
                 Login = "admin",
                 Password = "admin",
@@ -29,17 +29,12 @@ namespace Client.ViewModel
             ListFoodCategoryAndSubs = _foodCategoriesAndSubsLoader.GetCategoriesList(
                 XElement.Load(@"C:\Users\cleme\source\repos\MyFoodStock\Client\Ressources\XML\Categories.xml"));
 
-            var list = FoodManagerServiceClient.GetRecipesList(User.Token);
-            ObservableListFoods = new ObservableCollection<Food>(FoodManagerServiceClient.GetFoodList(User.Token));
-            ObservableListRecipes = new ObservableCollection<Recipe>(list);
+            ObservableListFoods = new ObservableCollection<Food>(_retryManager.RetryGetFoodList(User,FoodManagerServiceClient,UserServiceClient));
+            ObservableListRecipes = new ObservableCollection<Recipe>(_retryManager.RetryGetRecipesList(User, FoodManagerServiceClient, UserServiceClient));
             SubViewDictionary = new Dictionary<string, MainWindowSubViewModelBase>()
             {
                 {
-                    "MyFoodstock",new MyFoodstockSubViewModel()
-                    {
-                        ListFoods = ObservableListFoods,
-                        ListFoodCategoryAndSubs = ListFoodCategoryAndSubs
-                    }
+                    "MyFoodstock",new MyFoodstockSubViewModel(ObservableListFoods,ListFoodCategoryAndSubs)
                 },
                 {
                     "Recipes", new RecipesSubViewModel()
@@ -62,6 +57,8 @@ namespace Client.ViewModel
         private List<FoodCategoryAndSubs> _listFoodCategoryAndSubs;
 
         private Dictionary<string, MainWindowSubViewModelBase> _subViewDictionary;
+
+        private RetryManager _retryManager = new RetryManager();
         #endregion
 
         #region Services
@@ -159,11 +156,12 @@ namespace Client.ViewModel
             public List<FoodCategoryAndSubs> GetCategoriesList(XElement categoriesXML)
             {
                 List<FoodCategoryAndSubs> categoriesList = new List<FoodCategoryAndSubs>();
-                List<XElement> categoriesXElement = (from category in categoriesXML.Descendants() select category).ToList();
+                List<XElement> categoriesXElement = (from category in categoriesXML.Descendants() orderby category.Value select category).ToList();
                 foreach (var category in categoriesXElement)
                 {
                     Dictionary<string, int> subCategories = new Dictionary<string, int>();
                     var subCategoriesXElement = from subCategory in category.Attributes()
+                        orderby subCategory.Name.ToString()
                         where subCategory.Name != "Id"
                         select subCategory;
                     foreach (var attribute in subCategoriesXElement)
@@ -179,6 +177,117 @@ namespace Client.ViewModel
                 }
                 return categoriesList;
             }
+        }
+
+        private  class RetryManager
+        {
+            #region food CRUD
+            public Food[] RetryGetFoodList(User user, FoodManagerServiceClient foodManagerServiceClient, UserServiceClient userServiceClient)
+            {
+                var result = foodManagerServiceClient.GetFoodList(user.Token);
+                if (result.Length==0)
+                {
+                    user.Token = userServiceClient.Connect(user.Login, user.Password);
+                    result = foodManagerServiceClient.GetFoodList(user.Token);
+                }
+
+                return result;
+            }
+
+            public int? RetryCreateFood(Food food, User user, FoodManagerServiceClient foodManagerServiceClient, UserServiceClient userServiceClient)
+            {
+                var result = foodManagerServiceClient.CreateFood(food, user.Token);
+                if (result == 0)
+                {
+                    user.Token = userServiceClient.Connect(user.Login, user.Password);
+                    result= foodManagerServiceClient.CreateFood(food, user.Token);
+                }
+
+                return result;
+            }
+
+            public bool? RetryUpdateFood(Food food, User user, FoodManagerServiceClient foodManagerServiceClient,
+                UserServiceClient userServiceClient)
+            {
+                var result = foodManagerServiceClient.UpdateFood(food, user.Token);
+                if (result == false)
+                {
+                    user.Token = userServiceClient.Connect(user.Login, user.Password);
+                    result = foodManagerServiceClient.UpdateFood(food, user.Token);
+                }
+
+                return result;
+            }
+
+            public bool? RetryDeleteFood(Food food, User user, FoodManagerServiceClient foodManagerServiceClient,
+                UserServiceClient userServiceClient)
+            {
+                var result = foodManagerServiceClient.DeleteFood(food, user.Token);
+                if (result == false)
+                {
+                    user.Token = userServiceClient.Connect(user.Login, user.Password);
+                    result = foodManagerServiceClient.DeleteFood(food, user.Token);
+                }
+
+                return result;
+            }
+
+            #endregion
+
+            #region recipe CRUD
+
+            public int? RetryCreateRecipe(Recipe recipe, User user, FoodManagerServiceClient foodManagerServiceClient,
+                UserServiceClient userServiceClient)
+            {
+                var result = foodManagerServiceClient.CreateRecipe(recipe, user.Token);
+                if (result == 0)
+                {
+                    user.Token = userServiceClient.Connect(user.Login, user.Password);
+                    result = foodManagerServiceClient.CreateRecipe(recipe, user.Token);
+                }
+
+                return result;
+            }
+
+            public Recipe[] RetryGetRecipesList(User user, FoodManagerServiceClient foodManagerServiceClient,
+                UserServiceClient userServiceClient)
+            {
+                var result = foodManagerServiceClient.GetRecipesList(user.Token);
+                if (result.Length == 0)
+                {
+                    user.Token = userServiceClient.Connect(user.Login, user.Password);
+                    result = foodManagerServiceClient.GetRecipesList(user.Token);
+                }
+
+                return result;
+            }
+
+            public bool? RetryUpdateRecipe(Recipe recipe, User user, FoodManagerServiceClient foodManagerServiceClient,
+                UserServiceClient userServiceClient)
+            {
+                var result = foodManagerServiceClient.UpdateRecipe(recipe, user.Token);
+                if (result == false)
+                {
+                    user.Token = userServiceClient.Connect(user.Login, user.Password);
+                    result = foodManagerServiceClient.UpdateRecipe(recipe, user.Token);
+                }
+
+                return result;
+            }
+
+            public bool? RetryDeleteRecipe(Recipe recipe, User user, FoodManagerServiceClient foodManagerServiceClient,
+                UserServiceClient userServiceClient)
+            {
+                var result = foodManagerServiceClient.DeleteRecipe(recipe, user.Token);
+                if (result == false)
+                {
+                    user.Token = userServiceClient.Connect(user.Login, user.Password);
+                    result = foodManagerServiceClient.DeleteRecipe(recipe, user.Token);
+                }
+
+                return result;
+            }
+            #endregion
         }
 
         #endregion
