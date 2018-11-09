@@ -10,6 +10,7 @@ using Client.AuthenticationServiceReference;
 using Client.FoodManagerServiceReference;
 using Client.Helper;
 using Client.Model;
+using Client.View;
 using Client.ViewModel.MainWindowSubViewModel;
 using UserService.Modele;
 
@@ -23,7 +24,7 @@ namespace Client.ViewModel
             {
                 Login = "admin",
                 Password = "admin",
-                Token = "D9812AB5CCF25FC28FC4985BB9D75685"
+                Token = "5FB1DB6AC20D391183AFDAD68E1E74D0"
             };
             User = (mUser==null)?defaultUser:mUser;
             ListFoodCategoryAndSubs = _foodCategoriesAndSubsLoader.GetCategoriesList(
@@ -123,7 +124,13 @@ namespace Client.ViewModel
                        ?? (createFoodCommand = new RelayCommand(
                            (o) =>
                            {
-                               MessageBox.Show("CreateFoodCommand");
+                              Food food=null;
+                               food = new AddFoodWindow(ListFoodCategoryAndSubs, food).ShowDialog();
+                               if (_retryManager.RetryCreateFood(food, User, FoodManagerServiceClient,
+                                       UserServiceClient) != null)
+                               {
+                                   ObservableListFoods.Add(food);
+                               }
 
                            },
                            (o) => true));

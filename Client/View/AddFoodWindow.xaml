@@ -5,9 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Client.View"
         xmlns:foodManagerServiceReference="clr-namespace:Client.FoodManagerServiceReference"
+        xmlns:helper="clr-namespace:Client.Helper"
         mc:Ignorable="d"
         Title="Add Food" 
-        SizeToContent="WidthAndHeight">
+        SizeToContent="WidthAndHeight"
+        helper:DialogCloser.DialogResult="{Binding Path=CloseWindowFlag}">
     <Window.Resources>
         <Style TargetType="{x:Type Label}">
             <Setter Property="Margin" Value="3"/>
@@ -25,19 +27,25 @@
     <StackPanel Orientation="Vertical">
         <UniformGrid Margin="10" Columns="2">
             <Label Content="Name : "/>
-            <TextBox Text="{Binding Path=Name,Mode=TwoWay}"/>
+            <TextBox Text="{Binding Path=Name,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
             <Label Content="Quantity : "/>
             <StackPanel Orientation="Horizontal">
-                <TextBox Width="50" Text="{Binding Path=Quantity,Mode=TwoWay}"/>
+                <TextBox Width="50" Text="{Binding Path=Quantity,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
                 <Label Content="Unit : "/>
-                <TextBox Width="30" Text="{Binding Path=Unit,Mode=TwoWay}"/>
+                <TextBox Width="30" Text="{Binding Path=Unit,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
             </StackPanel>
             <Label Content="Category"/>
-            <ComboBox/>
+            <ComboBox Name="Categories"
+                      ItemsSource="{Binding Path=ListFoodCategoryAndSubs,UpdateSourceTrigger=PropertyChanged}"
+                      DisplayMemberPath="Name"
+                      SelectedItem="{Binding Path=SelectedCategory,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
             <Label Content="Subcategory"/>
-            <ComboBox/>
+            <ComboBox Name="SubCategories"
+                      ItemsSource="{Binding ElementName=Categories,Path=SelectedItem.SubCategory,UpdateSourceTrigger=PropertyChanged}"
+                      DisplayMemberPath="Key"
+                      SelectedItem="{Binding Path=SelectedSubCategory,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
             <Label Content="Expiration Date"/>
-            <DatePicker SelectedDate="{Binding Path=ExpirationDate,Mode=TwoWay}" />
+            <DatePicker SelectedDate="{Binding Path=ExpirationDate,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
         </UniformGrid>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
             <Button  Content="Create Food" Padding="10,5,10,5" Margin="10,0,10,10" Command="{Binding Path=CreateFoodCommand}"/>

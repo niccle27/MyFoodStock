@@ -5,29 +5,69 @@ using System.Text;
 using System.Threading.Tasks;
 using Client.FoodManagerServiceReference;
 using Client.Helper;
+using Client.Model;
 
 namespace Client.ViewModel
 {
-    public class AddFoodWindowViewModel : ViewModelBase//TODO finish this after updated dao food
+    public class AddFoodWindowViewModel : ViewModelBase
     {
-        private Food _foodOutputReference;
-
-        public Food FoodOutputReference
+        public AddFoodWindowViewModel(List<FoodCategoryAndSubs> listFoodCategoryAndSubs, Food foodOutputReference)
         {
-            get => _foodOutputReference;
-            set => _foodOutputReference = value;
+            _listFoodCategoryAndSubs = listFoodCategoryAndSubs;
+            if (foodOutputReference != null)
+            {
+                Food = foodOutputReference;
+            }
+            else
+            {
+                Food=new Food();
+            }
+            food.ExpirationDate = DateTime.Now;
+            SelectedCategory = ListFoodCategoryAndSubs.First();
+            SelectedSubCategory = SelectedCategory.SubCategory.First();
         }
 
-        /*public AddFoodWindowViewModel(Food mainViewModelFood)
+        private List<FoodCategoryAndSubs> _listFoodCategoryAndSubs;
+
+        private FoodCategoryAndSubs _selectedCategory;
+
+        private KeyValuePair<string, int> _selectedSubCategory;
+        private Food food;
+
+        public List<FoodCategoryAndSubs> ListFoodCategoryAndSubs
         {
-            MainViewModelFood = mainViewModelFood;
-        }*/
-        private Food food = new Food();
+            get => _listFoodCategoryAndSubs;
+            set => _listFoodCategoryAndSubs = value;
+        }
+
+        public FoodCategoryAndSubs SelectedCategory
+        {
+            get => _selectedCategory;
+            set
+            {
+                _selectedCategory = value;
+                IdCategory = _selectedCategory.Id;
+                OnPropertyChanged(nameof(SelectedCategory));
+            }
+        }
+
+        public KeyValuePair<string, int> SelectedSubCategory
+        {
+            get => _selectedSubCategory;
+            set
+            {
+                _selectedSubCategory = value;
+                IdSubCategory = _selectedSubCategory.Value;
+                OnPropertyChanged(nameof(SelectedSubCategory));
+            }
+        }
 
         public AddFoodWindowViewModel()
         {
-            food.ExpirationDate=DateTime.Now;
+            
         }
+
+
         public string Name
         {
             get => food.Name;
@@ -115,23 +155,23 @@ namespace Client.ViewModel
             {
                 return _createFood
                     ?? (_createFood = new RelayCommand(
-                    (o) =>
-                    {
-
-                    },
-                    (o) =>
-                    {
-                        if(String.IsNullOrWhiteSpace(Name) &&
-                          Quantity != 0 &&
-                          ExpirationDate < DateTime.Now &&
-                          Price !=0 &&
-                          IdCategory != 0 &&
-                          IdSubCategory != 0)return true;
-                        else
+                           (o) =>
+                           {
+                               CloseWindow();
+                           },
+                        (o) =>
                         {
-                            return false;
-                        }
-                    }));
+                            if(!String.IsNullOrWhiteSpace(Name) &&
+                              Quantity != 0 &&
+                              ExpirationDate >= DateTime.Now &&
+                              //Price !=0 && //TODO décommenter si on veut ajouter les prix
+                              IdCategory != 0 &&
+                              IdSubCategory != 0)return true;
+                            else
+                            {
+                                return false;
+                            }
+                        }));
             }
         }
     }

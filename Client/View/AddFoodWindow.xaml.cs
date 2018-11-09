@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Client.FoodManagerServiceReference;
+using Client.Model;
 using Client.ViewModel;
 
 namespace Client.View
@@ -27,6 +28,18 @@ namespace Client.View
         {
             InitializeComponent();
             DataContext = new AddFoodWindowViewModel();
+        }
+
+        public AddFoodWindow(List<FoodCategoryAndSubs> listFoodCategoryAndSubs, Food food)
+        {
+            InitializeComponent();
+            DataContext = new AddFoodWindowViewModel(listFoodCategoryAndSubs, food);
+        }
+
+        public Food ShowDialog()
+        {
+            base.ShowDialog();
+            return ((AddFoodWindowViewModel) DataContext).Food;
         }
     }
 }
