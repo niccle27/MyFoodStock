@@ -29,7 +29,9 @@
                       DisplayMemberPath="Key"
                       SelectedItem="{Binding Path=SelectedSubCategory,Mode=TwoWay}"/>
         </Grid>
-        <ListView ItemsSource="{Binding Path=ListFoods}">
+        <ListView ItemsSource="{Binding Path=ListFoods}"
+                  ScrollViewer.VerticalScrollBarVisibility="Visible"
+                  Height="350">
             <ListView.Resources>
                 <converter:QuantityUnitMultiValueConverter x:Key="QuantityUnitMultiValueConverter"/>
             </ListView.Resources>

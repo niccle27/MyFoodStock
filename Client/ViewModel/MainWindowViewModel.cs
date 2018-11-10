@@ -124,12 +124,16 @@ namespace Client.ViewModel
                        ?? (createFoodCommand = new RelayCommand(
                            (o) =>
                            {
-                              Food food=null;
-                               food = new AddFoodWindow(ListFoodCategoryAndSubs, food).ShowDialog();
-                               if (_retryManager.RetryCreateFood(food, User, FoodManagerServiceClient,
-                                       UserServiceClient) != null)
+                               Food food = new AddFoodWindow(ListFoodCategoryAndSubs, null).ShowDialog();
+                               if (food != null)
                                {
-                                   ObservableListFoods.Add(food);
+                                   int? id;
+                                   if ((id=_retryManager.RetryCreateFood(food, User, FoodManagerServiceClient,
+                                           UserServiceClient)) != null)
+                                   {
+                                       food.Id = (int) id;
+                                       ObservableListFoods.Add(food);
+                                   }
                                }
 
                            },
@@ -147,13 +151,42 @@ namespace Client.ViewModel
                     ?? (createRecipeCommand = new RelayCommand(
                            (o) =>
                            {
-                               MessageBox.Show("CreateRecipeCommand");
-
+                               Recipe recipe = new AddRecipeWindow().ShowDialog();
+                               if (recipe != null)
+                               {
+                                   int? id;
+                                   if ((id = _retryManager.RetryCreateRecipe(recipe, User, FoodManagerServiceClient,
+                                           UserServiceClient)) != null)
+                                   {
+                                       recipe.Id=(int)id;
+                                       ObservableListRecipes.Add(recipe);
+                                   }
+                               }
                            },
                     (o) => true));
             }
         }
 
+        private RelayCommand showAboutWindowCommand;
+
+        /// <summary>
+        /// Gets the MyCommand.
+        /// </summary>
+        public RelayCommand ShowAboutWindowCommand
+        {
+            get
+            {
+                return showAboutWindowCommand
+                    ?? (showAboutWindowCommand = new RelayCommand(
+                           (o) =>
+                           {
+                               MessageBox.Show("This software was develloped as" +
+                                               " a MA1 project for the \"technique de programmation\" course\n" +
+                                               "©2018 Copyrights Clément Nicolas  all rights reserved ");
+                           },
+                    (o) => true));
+            }
+        }
         #endregion
 
         #region nested class

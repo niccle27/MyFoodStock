@@ -16,13 +16,13 @@ namespace Client.ViewModel
             _listFoodCategoryAndSubs = listFoodCategoryAndSubs;
             if (foodOutputReference != null)
             {
-                Food = foodOutputReference;
+                _food = foodOutputReference;
             }
             else
             {
-                Food=new Food();
+                _food = new Food();
             }
-            food.ExpirationDate = DateTime.Now;
+            _food.ExpirationDate = DateTime.Now;
             SelectedCategory = ListFoodCategoryAndSubs.First();
             SelectedSubCategory = SelectedCategory.SubCategory.First();
         }
@@ -32,7 +32,15 @@ namespace Client.ViewModel
         private FoodCategoryAndSubs _selectedCategory;
 
         private KeyValuePair<string, int> _selectedSubCategory;
-        private Food food;
+
+        private Food _output;
+        private Food _food;
+
+        public Food Output
+        {
+            get => _output;
+            set => _output = value;
+        }
 
         public List<FoodCategoryAndSubs> ListFoodCategoryAndSubs
         {
@@ -70,78 +78,71 @@ namespace Client.ViewModel
 
         public string Name
         {
-            get => food.Name;
+            get => _food.Name;
             set
             {
-                food.Name = value;
+                _food.Name = value;
                 OnPropertyChanged(nameof(Name));
             }
         }
 
         public int Quantity
         {
-            get => food.Quantity;
+            get => _food.Quantity;
             set
             {
-                food.Quantity = value;
+                _food.Quantity = value;
                 OnPropertyChanged(nameof(Quantity));
             }
         }
 
         public DateTime ExpirationDate
         {
-            get => food.ExpirationDate;
+            get => _food.ExpirationDate;
             set
             {
-                food.ExpirationDate = value;
+                _food.ExpirationDate = value;
                 OnPropertyChanged(nameof(ExpirationDate));
             }
         }
 
         public int Price
         {
-            get => food.Price;
+            get => _food.Price;
             set
             {
-                food.Price = value;
+                _food.Price = value;
                 OnPropertyChanged(nameof(Price));
             }
         }
 
         public string Unit
         {
-            get => food.Unit;
+            get => _food.Unit;
             set
             {
-                food.Unit = value;
+                _food.Unit = value;
                 OnPropertyChanged(nameof(Unit));
             }
         }
 
         public int IdCategory
         {
-            get => food.IdCategory;
+            get => _food.IdCategory;
             set
             {
-                food.IdCategory = value;
+                _food.IdCategory = value;
                 OnPropertyChanged(nameof(IdCategory));
             }
         }
         public int IdSubCategory
         {
-            get => food.IdSubCategory;
+            get => _food.IdSubCategory;
             set
             {
-                food.IdSubCategory = value;
+                _food.IdSubCategory = value;
                 OnPropertyChanged(nameof(IdSubCategory));
             }
-        }
-
-
-        public Food Food
-        {
-            get => food;
-            set => food = value;
         }
 
         private RelayCommand _createFood;
@@ -157,6 +158,7 @@ namespace Client.ViewModel
                     ?? (_createFood = new RelayCommand(
                            (o) =>
                            {
+                               Output = _food;
                                CloseWindow();
                            },
                         (o) =>

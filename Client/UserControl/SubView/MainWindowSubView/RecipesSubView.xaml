@@ -13,7 +13,9 @@
             </Grid.ColumnDefinitions>
             <ComboBox />
         </Grid>
-        <ListView Name="ListOfRecipes" ItemsSource="{Binding Path=ListRecipes}">
+        <ListView Name="ListOfRecipes" ItemsSource="{Binding Path=ListRecipes}"
+                  ScrollViewer.VerticalScrollBarVisibility="Visible"
+                  Height="350">
             <ListView.ItemTemplate>
                 <DataTemplate DataType="{x:Type foodManagerService:Recipe}">
                     <datatemplate:RecipeListViewItemTemplate/>

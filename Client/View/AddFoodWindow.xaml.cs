@@ -36,10 +36,10 @@ namespace Client.View
             DataContext = new AddFoodWindowViewModel(listFoodCategoryAndSubs, food);
         }
 
-        public Food ShowDialog()
+        public new Food ShowDialog()
         {
             base.ShowDialog();
-            return ((AddFoodWindowViewModel) DataContext).Food;
+            return ((AddFoodWindowViewModel) DataContext).Output;
         }
     }
 }

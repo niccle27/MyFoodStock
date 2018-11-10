@@ -11,6 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Client.FoodManagerServiceReference;
+using Client.ViewModel;
 
 namespace Client.View
 {
@@ -22,6 +24,13 @@ namespace Client.View
         public AddRecipeWindow()
         {
             InitializeComponent();
+            DataContext = new AddRecipeWindowViewModel();
+        }
+
+        public new Recipe ShowDialog()
+        {
+            base.ShowDialog();
+            return ((AddRecipeWindowViewModel) DataContext).Output;
         }
     }
 }
