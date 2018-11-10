@@ -36,6 +36,9 @@ namespace Client.ViewModel
             {
                 {
                     "MyFoodstock",new MyFoodstockSubViewModel(ObservableListFoods,ListFoodCategoryAndSubs)
+                    {
+                        RemoveCommand = DeleteFoodCommand
+                    }
                 },
                 {
                     "Recipes", new RecipesSubViewModel()
@@ -185,6 +188,48 @@ namespace Client.ViewModel
                                                "©2018 Copyrights Clément Nicolas  all rights reserved ");
                            },
                     (o) => true));
+            }
+        }
+
+        private RelayCommand _DeleteFoodCommand;
+
+        /// <summary>
+        /// Gets the MyCommand.
+        /// </summary>
+        public RelayCommand DeleteFoodCommand
+        {
+            get
+            {
+                return _DeleteFoodCommand
+                    ?? (_DeleteFoodCommand = new RelayCommand(
+                    (o) =>
+                    {
+                        Food food =  (Food)o;
+                        _retryManager.RetryDeleteFood(food, User, FoodManagerServiceClient,UserServiceClient);
+                        ObservableListFoods.Remove(food);
+                    },
+                    (o) => true));
+            }
+        }
+
+        private RelayCommand _DeleteRecipeCommand;
+
+        /// <summary>
+        /// Gets the MyCommand.
+        /// </summary>
+        public RelayCommand DeleteRecipeCommand
+        {
+            get
+            {
+                return _DeleteRecipeCommand
+                       ?? (_DeleteRecipeCommand = new RelayCommand(
+                           (o) =>
+                           {
+                               Food food = (Food)o;
+                               _retryManager.RetryDeleteFood(food, User, FoodManagerServiceClient, UserServiceClient);
+                               ObservableListFoods.Remove(food);
+                           },
+                           (o) => true));
             }
         }
         #endregion

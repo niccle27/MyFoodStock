@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
 using Client.FoodManagerServiceReference;
+using Client.Helper;
 using Client.Model;
 
 namespace Client.ViewModel.MainWindowSubViewModel
@@ -14,6 +15,8 @@ namespace Client.ViewModel.MainWindowSubViewModel
     {
         private FoodCategoryAndSubs _selectedCategory;
         private KeyValuePair<string,int> _selectedSubCategory;
+        private Food _selectedFood;
+
         private ObservableCollection<Food> _listFoods;
         private List<FoodCategoryAndSubs> _listFoodCategoryAndSubs;
 
@@ -45,6 +48,15 @@ namespace Client.ViewModel.MainWindowSubViewModel
             }
         }
 
+        public Food SelectedFood
+        {
+            get => _selectedFood;
+            set
+            {
+                _selectedFood = value;
+                OnPropertyChanged(nameof(SelectedFood));
+            }
+        }
 
         public List<FoodCategoryAndSubs> ListFoodCategoryAndSubs
         {
@@ -57,6 +69,18 @@ namespace Client.ViewModel.MainWindowSubViewModel
             get => _listFoods;
             set => _listFoods = value;
         }
+
+        #region MyRegion
+
+        private RelayCommand _removeCommand;
+
+        public RelayCommand RemoveCommand
+        {
+            get => _removeCommand;
+            set => _removeCommand = value;
+        }
+
+        #endregion
 
         #region Filter
 

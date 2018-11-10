@@ -29,12 +29,18 @@
                       DisplayMemberPath="Key"
                       SelectedItem="{Binding Path=SelectedSubCategory,Mode=TwoWay}"/>
         </Grid>
-        <ListView ItemsSource="{Binding Path=ListFoods}"
+        <ListView Name="FoodListView" ItemsSource="{Binding Path=ListFoods}"
                   ScrollViewer.VerticalScrollBarVisibility="Visible"
-                  Height="350">
+                  Height="350"
+                  SelectedItem="{Binding SelectedFood,Mode=OneWayToSource}">
             <ListView.Resources>
                 <converter:QuantityUnitMultiValueConverter x:Key="QuantityUnitMultiValueConverter"/>
             </ListView.Resources>
+            <ListView.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Remove" Command="{Binding Path=RemoveCommand}" CommandParameter="{Binding SelectedFood,Mode=OneWay}"/>
+                </ContextMenu>
+            </ListView.ContextMenu>
             <ListView.View>
                 <GridView>
                     <GridViewColumn Width="auto" Header="Name" DisplayMemberBinding="{Binding Path=Name}"/>
