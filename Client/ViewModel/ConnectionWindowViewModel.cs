@@ -106,7 +106,7 @@ namespace Client.ViewModel
                            (o) => true));
             }
         }
-        public RelayCommand RegisterCommand
+        public RelayCommand OpenRegisterWindowCommand
         {
             get
             {

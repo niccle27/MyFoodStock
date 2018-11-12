@@ -27,7 +27,7 @@ namespace Client.ViewModel
                 Password = "admin",
                 Token = "5FB1DB6AC20D391183AFDAD68E1E74D0"
             };
-            User = (mUser==null)?defaultUser:mUser;
+            User = mUser ?? defaultUser;
 
             retryManager = new RetryManager(userServiceClient,foodManagerServiceClient);
             ListFoodCategoryAndSubs = FoodCategoriesAndSubsLoader.GetCategoriesList(
@@ -40,7 +40,8 @@ namespace Client.ViewModel
                 {
                     "MyFoodstock",new MyFoodstockSubViewModel(ObservableListFoods,ListFoodCategoryAndSubs)
                     {
-                        RemoveCommand = DeleteFoodCommand
+                        RemoveFoodCommand = DeleteFoodCommand,
+                        UpdateFoodCommand = UpdateFoodCommand
                     }
                 },
                 {
@@ -62,9 +63,9 @@ namespace Client.ViewModel
 
         private Dictionary<string, MainWindowSubViewModelBase> _subViewDictionary;
 
-        private UserServiceClient userServiceClient = new UserServiceClient();
-        private FoodManagerServiceClient foodManagerServiceClient = new FoodManagerServiceClient();
-        private RetryManager retryManager;
+        private readonly UserServiceClient userServiceClient = new UserServiceClient();
+        private readonly FoodManagerServiceClient foodManagerServiceClient = new FoodManagerServiceClient();
+        private readonly RetryManager retryManager;
         #endregion
 
         #region Properties
@@ -109,6 +110,8 @@ namespace Client.ViewModel
         private RelayCommand _showAboutWindowCommand;
         private RelayCommand _deleteFoodCommand;
         private RelayCommand _deleteRecipeCommand;
+        private RelayCommand _updateRecipeCommand;
+        private RelayCommand _updateFoodCommand;
 
         public RelayCommand CreateFoodCommand
         {
@@ -185,7 +188,7 @@ namespace Client.ViewModel
                     (o) => true));
             }
         }
-        public RelayCommand DeleteRecipeCommand
+        public RelayCommand DeleteRecipeCommand//TODO modifier, ici copier coller de deleteFoodCommand
         {
             get
             {
@@ -198,6 +201,55 @@ namespace Client.ViewModel
                                ObservableListFoods.Remove(food);
                            },
                            (o) => true));
+            }
+        }
+        public RelayCommand UpdateRecipeCommand
+        {
+            get
+            {
+                return _updateRecipeCommand
+                    ?? (_updateRecipeCommand = new RelayCommand(
+                    (o) =>
+                    {
+                        Recipe recipeSelected = (Recipe) o;
+                        Recipe recipeFromWindow = new AddRecipeWindow(recipeSelected).ShowDialog();
+                        if(recipeFromWindow != null)
+                        {
+                            if (retryManager.RetryUpdateRecipe(recipeFromWindow, user)==true)
+                            {
+                                ObservableListRecipes.Remove(ObservableListRecipes.Where((x)=>x.Id == recipeSelected.Id).First());
+                                ObservableListRecipes.Add(recipeFromWindow);
+                            }
+                        }
+                    },
+                    (o) => true));
+            }
+        }
+
+
+        /// <summary>
+        /// Gets the UpdateFoodCommand.
+        /// </summary>
+        public RelayCommand UpdateFoodCommand
+        {
+            get
+            {
+                return _updateFoodCommand
+                    ?? (_updateFoodCommand = new RelayCommand(
+                    (o) =>
+                    {
+                        Food foodSelected = (Food)o;
+                        Food foodFromWindow = new AddFoodWindow(ListFoodCategoryAndSubs,foodSelected).ShowDialog();
+                        if (foodFromWindow != null)
+                        {
+                            if (retryManager.RetryUpdateFood(foodFromWindow, user) == true)
+                            {
+                                ObservableListFoods.Remove(ObservableListFoods.Where((x) => x.Id == foodSelected.Id).First());
+                                ObservableListFoods.Add(foodFromWindow);
+                            }
+                        }
+                    },
+                    (o) => true));
             }
         }
         #endregion

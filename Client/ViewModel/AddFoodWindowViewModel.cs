@@ -19,21 +19,36 @@ namespace Client.ViewModel
             _listFoodCategoryAndSubs = listFoodCategoryAndSubs;
             if (foodOutputReference != null)
             {
-                _food = foodOutputReference;
+                _food = new Food()
+                {
+                    IdCategory = foodOutputReference.IdCategory,
+                    Id = foodOutputReference.Id,
+                    IdSubCategory = foodOutputReference.IdSubCategory,
+                    ExpirationDate = foodOutputReference.ExpirationDate,
+                    Quantity = foodOutputReference.Quantity,
+                    Price = foodOutputReference.Price,
+                    Name = foodOutputReference.Name,
+                    Unit = foodOutputReference.Unit
+                };
+                ButtonValidateContent = "Update";
+                _food.ExpirationDate = foodOutputReference.ExpirationDate;
+                SelectedCategory = (from category in listFoodCategoryAndSubs
+                    where category.Id == foodOutputReference.IdCategory
+                    select category).First();
+                SelectedSubCategory = (from subCategory in SelectedCategory.SubCategory
+                    where subCategory.Value == foodOutputReference.IdSubCategory
+                    select subCategory).First();
             }
             else
             {
                 _food = new Food();
+                ButtonValidateContent = "Create";
+                _food.ExpirationDate = DateTime.Now;
+                SelectedCategory = ListFoodCategoryAndSubs.First();
+                SelectedSubCategory = SelectedCategory.SubCategory.First();
             }
-            _food.ExpirationDate = DateTime.Now;
-            SelectedCategory = ListFoodCategoryAndSubs.First();
-            SelectedSubCategory = SelectedCategory.SubCategory.First();
-        }
-        public AddFoodWindowViewModel()
-        {
 
         }
-
         #endregion
 
         #region Private Fields
@@ -41,16 +56,23 @@ namespace Client.ViewModel
         private List<FoodCategoryAndSubs> _listFoodCategoryAndSubs;
 
         private FoodCategoryAndSubs _selectedCategory;
-
         private KeyValuePair<string, int> _selectedSubCategory;
 
         private Food _output;
         private Food _food;
 
+        private string _buttonValidateContent;
+
+
         #endregion
 
         #region Properties
 
+        public string ButtonValidateContent
+        {
+            get => _buttonValidateContent;
+            set => _buttonValidateContent = value;
+        }
         public Food Output
         {
             get => _output;

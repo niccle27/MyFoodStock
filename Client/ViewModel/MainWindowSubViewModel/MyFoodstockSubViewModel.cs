@@ -37,8 +37,6 @@ namespace Client.ViewModel.MainWindowSubViewModel
         #endregion
 
 
-        //TODO filtering : https://dzone.com/articles/filtering-mvvm-architecture
-
         #region Properties
 
         public FoodCategoryAndSubs SelectedCategory
@@ -88,8 +86,15 @@ namespace Client.ViewModel.MainWindowSubViewModel
         #region RelayCommands
 
         private RelayCommand _removeFoodCommand;
+        private RelayCommand _updateFoodCommand;
 
-        public RelayCommand RemoveCommand
+        public RelayCommand UpdateFoodCommand
+        {
+            get => _updateFoodCommand;
+            set => _updateFoodCommand = value;
+        }
+
+        public RelayCommand RemoveFoodCommand
         {
             get => _removeFoodCommand;
             set => _removeFoodCommand = value;
@@ -106,8 +111,7 @@ namespace Client.ViewModel.MainWindowSubViewModel
         }
         private bool FoodFilter(object item)
         {
-            var food = item as Food;
-            if (food != null)
+            if (item is Food food)
             {
                 if (food.IdCategory == SelectedCategory.Id && food.IdSubCategory == SelectedSubCategory.Value)
                     return true;

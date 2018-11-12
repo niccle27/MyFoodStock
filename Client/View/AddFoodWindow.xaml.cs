@@ -24,10 +24,10 @@ namespace Client.View
     /// </summary>
     public partial class AddFoodWindow : Window
     {
-        public AddFoodWindow()
+        public AddFoodWindow(List<FoodCategoryAndSubs> listFoodCategoryAndSubs)
         {
             InitializeComponent();
-            DataContext = new AddFoodWindowViewModel();
+            DataContext = new AddFoodWindowViewModel(listFoodCategoryAndSubs,null);
         }
 
         public AddFoodWindow(List<FoodCategoryAndSubs> listFoodCategoryAndSubs, Food food)

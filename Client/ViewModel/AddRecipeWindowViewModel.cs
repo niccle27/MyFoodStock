@@ -10,9 +10,23 @@ namespace Client.ViewModel
 {
     public class AddRecipeWindowViewModel:ViewModelBase
     {
-        #region Private Fields
+        #region ctor
 
-        private Recipe _recipe = new Recipe();
+        public AddRecipeWindowViewModel(Recipe recipe)
+        {
+            if (recipe == null)
+            {
+                Recipe = new Recipe();
+            }
+            else
+            {
+                Recipe = recipe;
+            }
+        }
+        #endregion
+
+        #region Private Fields
+        private Recipe _recipe;
         private Recipe _output;
 
         private string _author;
@@ -115,5 +129,6 @@ namespace Client.ViewModel
         }
 
         #endregion
+
     }
 }

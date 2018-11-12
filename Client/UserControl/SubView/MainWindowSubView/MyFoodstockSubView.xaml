@@ -38,7 +38,8 @@
             </ListView.Resources>
             <ListView.ContextMenu>
                 <ContextMenu>
-                    <MenuItem Header="Remove" Command="{Binding Path=RemoveCommand}" CommandParameter="{Binding SelectedFood,Mode=OneWay}"/>
+                    <MenuItem Header="Remove" Command="{Binding Path=RemoveFoodCommand}" CommandParameter="{Binding SelectedFood,Mode=OneWay}"/>
+                    <MenuItem Header="Update" Command="{Binding Path=UpdateFoodCommand}" CommandParameter="{Binding SelectedFood,Mode=OneWay}"/>
                 </ContextMenu>
             </ListView.ContextMenu>
             <ListView.View>

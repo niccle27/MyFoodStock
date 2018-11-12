@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Client.FoodManagerServiceReference;
+using Client.Helper;
 
 namespace Client.ViewModel.MainWindowSubViewModel
 {
@@ -25,5 +26,24 @@ namespace Client.ViewModel.MainWindowSubViewModel
         }
 
         #endregion
+
+        private RelayCommand _openRecipeCommand;
+
+        /// <summary>
+        /// Gets the MyCommand.
+        /// </summary>
+        public RelayCommand OpenRecipeCommand
+        {
+            get
+            {
+                return _openRecipeCommand
+                    ?? (_openRecipeCommand = new RelayCommand(
+                    (o) =>
+                    {
+
+                    },
+                    (o) => true));
+            }
+        }
     }
 }

@@ -24,7 +24,13 @@ namespace Client.View
         public AddRecipeWindow()
         {
             InitializeComponent();
-            DataContext = new AddRecipeWindowViewModel();
+            DataContext = new AddRecipeWindowViewModel(null);
+        }
+
+        public AddRecipeWindow(Recipe recipe)
+        {
+            InitializeComponent();
+            DataContext = new AddRecipeWindowViewModel(recipe);
         }
 
         public new Recipe ShowDialog()
