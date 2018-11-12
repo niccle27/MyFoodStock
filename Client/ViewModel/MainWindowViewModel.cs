@@ -18,6 +18,7 @@ namespace Client.ViewModel
 {
     public class MainWindowViewModel: ViewModelBase
     {
+        #region Ctor
         public MainWindowViewModel(User mUser)
         {
             User defaultUser = new User()//todo delete en production 
@@ -27,11 +28,13 @@ namespace Client.ViewModel
                 Token = "5FB1DB6AC20D391183AFDAD68E1E74D0"
             };
             User = (mUser==null)?defaultUser:mUser;
-            ListFoodCategoryAndSubs = _foodCategoriesAndSubsLoader.GetCategoriesList(
+
+            retryManager = new RetryManager(userServiceClient,foodManagerServiceClient);
+            ListFoodCategoryAndSubs = FoodCategoriesAndSubsLoader.GetCategoriesList(
                 XElement.Load(@"C:\Users\cleme\source\repos\MyFoodStock\Client\Ressources\XML\Categories.xml"));
 
-            ObservableListFoods = new ObservableCollection<Food>(_retryManager.RetryGetFoodList(User,FoodManagerServiceClient,UserServiceClient));
-            ObservableListRecipes = new ObservableCollection<Recipe>(_retryManager.RetryGetRecipesList(User, FoodManagerServiceClient, UserServiceClient));
+            ObservableListFoods = new ObservableCollection<Food>(retryManager.RetryGetFoodList(User));
+            ObservableListRecipes = new ObservableCollection<Recipe>(retryManager.RetryGetRecipesList(User));
             SubViewDictionary = new Dictionary<string, MainWindowSubViewModelBase>()
             {
                 {
@@ -48,13 +51,10 @@ namespace Client.ViewModel
                 }
             };
         }
-        #region private fields
-        FoodCategoriesAndSubsLoader _foodCategoriesAndSubsLoader = new FoodCategoriesAndSubsLoader();
+        #endregion
 
+        #region Private Fields
         private User user;
-
-        private UserServiceClient _userServiceClient = new UserServiceClient();
-        private FoodManagerServiceClient _foodManagerServiceClient = new FoodManagerServiceClient();
 
         private ObservableCollection<Recipe> _listRecipes;
         private ObservableCollection<Food> _listFoods;
@@ -62,30 +62,19 @@ namespace Client.ViewModel
 
         private Dictionary<string, MainWindowSubViewModelBase> _subViewDictionary;
 
-        private RetryManager _retryManager = new RetryManager();
+        private UserServiceClient userServiceClient = new UserServiceClient();
+        private FoodManagerServiceClient foodManagerServiceClient = new FoodManagerServiceClient();
+        private RetryManager retryManager;
         #endregion
 
-        #region Services
-        public UserServiceClient UserServiceClient
-        {
-            get => _userServiceClient;
-            set => _userServiceClient = value;
-        }
-        public FoodManagerServiceClient FoodManagerServiceClient
-        {
-            get => _foodManagerServiceClient;
-            set => _foodManagerServiceClient = value;
-        }
-        #endregion
+        #region Properties
 
         #region SubView
-
         public Dictionary<string, MainWindowSubViewModelBase> SubViewDictionary
         {
             get => _subViewDictionary;
             set => _subViewDictionary = value;
         }
-
         #endregion
 
         #region Data
@@ -111,28 +100,29 @@ namespace Client.ViewModel
         }
         #endregion
 
-        #region RelayCommand
+        #endregion
 
-        private RelayCommand createRecipeCommand;
-        private RelayCommand createFoodCommand;
+        #region RelayCommands
 
-        /// <summary>
-        /// Gets the MyCommand.
-        /// </summary>
+        private RelayCommand _createRecipeCommand;
+        private RelayCommand _createFoodCommand;
+        private RelayCommand _showAboutWindowCommand;
+        private RelayCommand _deleteFoodCommand;
+        private RelayCommand _deleteRecipeCommand;
+
         public RelayCommand CreateFoodCommand
         {
             get
             {
-                return createFoodCommand
-                       ?? (createFoodCommand = new RelayCommand(
+                return _createFoodCommand
+                       ?? (_createFoodCommand = new RelayCommand(
                            (o) =>
                            {
                                Food food = new AddFoodWindow(ListFoodCategoryAndSubs, null).ShowDialog();
                                if (food != null)
                                {
                                    int? id;
-                                   if ((id=_retryManager.RetryCreateFood(food, User, FoodManagerServiceClient,
-                                           UserServiceClient)) != null)
+                                   if ((id=retryManager.RetryCreateFood(food, User)) != null)
                                    {
                                        food.Id = (int) id;
                                        ObservableListFoods.Add(food);
@@ -143,23 +133,19 @@ namespace Client.ViewModel
                            (o) => true));
             }
         }
-        /// <summary>
-        /// Gets the MyCommand.
-        /// </summary>
         public RelayCommand CreateRecipeCommand
         {
             get
             {
-                return createRecipeCommand
-                    ?? (createRecipeCommand = new RelayCommand(
+                return _createRecipeCommand
+                    ?? (_createRecipeCommand = new RelayCommand(
                            (o) =>
                            {
                                Recipe recipe = new AddRecipeWindow().ShowDialog();
                                if (recipe != null)
                                {
                                    int? id;
-                                   if ((id = _retryManager.RetryCreateRecipe(recipe, User, FoodManagerServiceClient,
-                                           UserServiceClient)) != null)
+                                   if ((id = retryManager.RetryCreateRecipe(recipe, User)) != null)
                                    {
                                        recipe.Id=(int)id;
                                        ObservableListRecipes.Add(recipe);
@@ -169,18 +155,12 @@ namespace Client.ViewModel
                     (o) => true));
             }
         }
-
-        private RelayCommand showAboutWindowCommand;
-
-        /// <summary>
-        /// Gets the MyCommand.
-        /// </summary>
         public RelayCommand ShowAboutWindowCommand
         {
             get
             {
-                return showAboutWindowCommand
-                    ?? (showAboutWindowCommand = new RelayCommand(
+                return _showAboutWindowCommand
+                    ?? (_showAboutWindowCommand = new RelayCommand(
                            (o) =>
                            {
                                MessageBox.Show("This software was develloped as" +
@@ -190,43 +170,31 @@ namespace Client.ViewModel
                     (o) => true));
             }
         }
-
-        private RelayCommand _DeleteFoodCommand;
-
-        /// <summary>
-        /// Gets the MyCommand.
-        /// </summary>
         public RelayCommand DeleteFoodCommand
         {
             get
             {
-                return _DeleteFoodCommand
-                    ?? (_DeleteFoodCommand = new RelayCommand(
+                return _deleteFoodCommand
+                    ?? (_deleteFoodCommand = new RelayCommand(
                     (o) =>
                     {
                         Food food =  (Food)o;
-                        _retryManager.RetryDeleteFood(food, User, FoodManagerServiceClient,UserServiceClient);
+                        retryManager.RetryDeleteFood(food, User);
                         ObservableListFoods.Remove(food);
                     },
                     (o) => true));
             }
         }
-
-        private RelayCommand _DeleteRecipeCommand;
-
-        /// <summary>
-        /// Gets the MyCommand.
-        /// </summary>
         public RelayCommand DeleteRecipeCommand
         {
             get
             {
-                return _DeleteRecipeCommand
-                       ?? (_DeleteRecipeCommand = new RelayCommand(
+                return _deleteRecipeCommand
+                       ?? (_deleteRecipeCommand = new RelayCommand(
                            (o) =>
                            {
                                Food food = (Food)o;
-                               _retryManager.RetryDeleteFood(food, User, FoodManagerServiceClient, UserServiceClient);
+                               retryManager.RetryDeleteFood(food, User);
                                ObservableListFoods.Remove(food);
                            },
                            (o) => true));
@@ -234,11 +202,10 @@ namespace Client.ViewModel
         }
         #endregion
 
-        #region nested class
-
-        private  class FoodCategoriesAndSubsLoader
+        #region Nested class
+        private static class FoodCategoriesAndSubsLoader
         {
-            public List<FoodCategoryAndSubs> GetCategoriesList(XElement categoriesXML)
+            public static List<FoodCategoryAndSubs> GetCategoriesList(XElement categoriesXML)
             {
                 List<FoodCategoryAndSubs> categoriesList = new List<FoodCategoryAndSubs>();
                 List<XElement> categoriesXElement = (from category in categoriesXML.Descendants() orderby category.Value select category).ToList();
@@ -263,11 +230,19 @@ namespace Client.ViewModel
                 return categoriesList;
             }
         }
-
         private  class RetryManager
         {
+            public RetryManager(UserServiceClient userServiceClient, FoodManagerServiceClient foodManagerServiceClient)
+            {
+                this.userServiceClient = userServiceClient;
+                this.foodManagerServiceClient = foodManagerServiceClient;
+            }
+
+            private UserServiceClient userServiceClient;
+            private FoodManagerServiceClient foodManagerServiceClient;
+
             #region food CRUD
-            public Food[] RetryGetFoodList(User user, FoodManagerServiceClient foodManagerServiceClient, UserServiceClient userServiceClient)
+            public Food[] RetryGetFoodList(User user)
             {
                 var result = foodManagerServiceClient.GetFoodList(user.Token);
                 if (result.Length==0)
@@ -275,11 +250,10 @@ namespace Client.ViewModel
                     user.Token = userServiceClient.Connect(user.Login, user.Password);
                     result = foodManagerServiceClient.GetFoodList(user.Token);
                 }
-
                 return result;
             }
 
-            public int? RetryCreateFood(Food food, User user, FoodManagerServiceClient foodManagerServiceClient, UserServiceClient userServiceClient)
+            public int? RetryCreateFood(Food food, User user)
             {
                 var result = foodManagerServiceClient.CreateFood(food, user.Token);
                 if (result == 0)
@@ -287,12 +261,10 @@ namespace Client.ViewModel
                     user.Token = userServiceClient.Connect(user.Login, user.Password);
                     result= foodManagerServiceClient.CreateFood(food, user.Token);
                 }
-
                 return result;
             }
 
-            public bool? RetryUpdateFood(Food food, User user, FoodManagerServiceClient foodManagerServiceClient,
-                UserServiceClient userServiceClient)
+            public bool? RetryUpdateFood(Food food, User user)
             {
                 var result = foodManagerServiceClient.UpdateFood(food, user.Token);
                 if (result == false)
@@ -300,12 +272,10 @@ namespace Client.ViewModel
                     user.Token = userServiceClient.Connect(user.Login, user.Password);
                     result = foodManagerServiceClient.UpdateFood(food, user.Token);
                 }
-
                 return result;
             }
 
-            public bool? RetryDeleteFood(Food food, User user, FoodManagerServiceClient foodManagerServiceClient,
-                UserServiceClient userServiceClient)
+            public bool? RetryDeleteFood(Food food, User user)
             {
                 var result = foodManagerServiceClient.DeleteFood(food, user.Token);
                 if (result == false)
@@ -313,7 +283,6 @@ namespace Client.ViewModel
                     user.Token = userServiceClient.Connect(user.Login, user.Password);
                     result = foodManagerServiceClient.DeleteFood(food, user.Token);
                 }
-
                 return result;
             }
 
@@ -321,8 +290,7 @@ namespace Client.ViewModel
 
             #region recipe CRUD
 
-            public int? RetryCreateRecipe(Recipe recipe, User user, FoodManagerServiceClient foodManagerServiceClient,
-                UserServiceClient userServiceClient)
+            public int? RetryCreateRecipe(Recipe recipe, User user)
             {
                 var result = foodManagerServiceClient.CreateRecipe(recipe, user.Token);
                 if (result == 0)
@@ -330,12 +298,10 @@ namespace Client.ViewModel
                     user.Token = userServiceClient.Connect(user.Login, user.Password);
                     result = foodManagerServiceClient.CreateRecipe(recipe, user.Token);
                 }
-
                 return result;
             }
 
-            public Recipe[] RetryGetRecipesList(User user, FoodManagerServiceClient foodManagerServiceClient,
-                UserServiceClient userServiceClient)
+            public Recipe[] RetryGetRecipesList(User user)
             {
                 var result = foodManagerServiceClient.GetRecipesList(user.Token);
                 if (result.Length == 0)
@@ -343,12 +309,10 @@ namespace Client.ViewModel
                     user.Token = userServiceClient.Connect(user.Login, user.Password);
                     result = foodManagerServiceClient.GetRecipesList(user.Token);
                 }
-
                 return result;
             }
 
-            public bool? RetryUpdateRecipe(Recipe recipe, User user, FoodManagerServiceClient foodManagerServiceClient,
-                UserServiceClient userServiceClient)
+            public bool? RetryUpdateRecipe(Recipe recipe, User user)
             {
                 var result = foodManagerServiceClient.UpdateRecipe(recipe, user.Token);
                 if (result == false)
@@ -356,12 +320,10 @@ namespace Client.ViewModel
                     user.Token = userServiceClient.Connect(user.Login, user.Password);
                     result = foodManagerServiceClient.UpdateRecipe(recipe, user.Token);
                 }
-
                 return result;
             }
 
-            public bool? RetryDeleteRecipe(Recipe recipe, User user, FoodManagerServiceClient foodManagerServiceClient,
-                UserServiceClient userServiceClient)
+            public bool? RetryDeleteRecipe(Recipe recipe, User user)
             {
                 var result = foodManagerServiceClient.DeleteRecipe(recipe, user.Token);
                 if (result == false)
@@ -369,12 +331,10 @@ namespace Client.ViewModel
                     user.Token = userServiceClient.Connect(user.Login, user.Password);
                     result = foodManagerServiceClient.DeleteRecipe(recipe, user.Token);
                 }
-
                 return result;
             }
             #endregion
         }
-
         #endregion
     }
 }

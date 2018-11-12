@@ -13,112 +13,105 @@ namespace Client.ViewModel
     public class ConnectionWindowViewModel:ViewModelBase
     {
 
+        #region Private Fields
+
         UserServiceClient userServiceClient = new UserServiceClient();
 
-        private string login;
-        private string password;
-        private bool connectionFailed = false;
+        private string _login;
+        private string _password;
+        private bool _connectionFailed = false;
 
-        public UserServiceClient UserServiceClient
-        {
-            get => userServiceClient;
-            set => userServiceClient = value;
-        }
+        #endregion
 
-
+        #region Properties
         public bool ConnectionFailed
         {
-            get => connectionFailed;
+            get => _connectionFailed;
             set
             {
-                connectionFailed = value;
+                _connectionFailed = value;
                 OnPropertyChanged(nameof(ConnectionFailed));
             }
         }
 
         public string Login
         {
-            get => login;
+            get => _login;
             set
             {
-                login = value;
+                _login = value;
                 OnPropertyChanged(nameof(Login));
             }
         }
 
         public string Password
         {
-            get => password;
+            get => _password;
             set
             {
-                password = value;
+                _password = value;
                 OnPropertyChanged(nameof(Password));
             }
         }
 
-        private RelayCommand connectionCommand;
-        /// <summary>
-        /// try to connect using the UserService
-        /// </summary>
+        #endregion
+
+        #region RelayCommands
+
+        private RelayCommand _connectCommand;
+        private RelayCommand _resetCommand;
+        private RelayCommand _openRegisterWindow;
+
         public RelayCommand ConnectionCommand
         {
             get
             {
-                return connectionCommand
-                    ?? (connectionCommand = new RelayCommand(
-                    (o) =>
-                    {
-                        string token = userServiceClient.Connect(Login,Password);
-                        if (token != null)
-                        {
-                            ConnectionFailed = false;
-                            User user = new User()
-                            {
-                                Login = Login,
-                                Password = Password,
-                                Token = token
-                            };
-                            new MainWindow(user).Show();
-                            this.CloseWindow();
-                        }
-                        else
-                        {
-                            ConnectionFailed = true;
-                        }
-                    },
-                    (o) => { return !(String.IsNullOrWhiteSpace(Login) || String.IsNullOrWhiteSpace(Password)); }));
+                return _connectCommand
+                       ?? (_connectCommand = new RelayCommand(
+                           (o) =>
+                           {
+                               string token = userServiceClient.Connect(Login,Password);
+                               if (token != null)
+                               {
+                                   ConnectionFailed = false;
+                                   User user = new User()
+                                   {
+                                       Login = Login,
+                                       Password = Password,
+                                       Token = token
+                                   };
+                                   new MainWindow(user).Show();
+                                   this.CloseWindow();
+                               }
+                               else
+                               {
+                                   ConnectionFailed = true;
+                               }
+                           },
+                           (o) => { return !(String.IsNullOrWhiteSpace(Login) || String.IsNullOrWhiteSpace(Password)); }));
             }
         }
-        private RelayCommand resetCommand;
-        /// <summary>
-        /// Gets the ResetCommand.
-        /// </summary>
         public RelayCommand ResetCommand
         {
             get
             {
-                return resetCommand
-                    ?? (resetCommand = new RelayCommand(
+                return _resetCommand
+                       ?? (_resetCommand = new RelayCommand(
                            (o) =>
                            {
                                Login = string.Empty;
                                Password = string.Empty;
                                ConnectionFailed = false;
                            },
-                    (o) => true));
+                           (o) => true));
             }
         }
-        private RelayCommand registerCommand;
-
-        /// <summary>
-        /// Gets the ResetCommand.
-        /// </summary>
         public RelayCommand RegisterCommand
         {
             get
             {
-                return registerCommand
-                       ?? (registerCommand = new RelayCommand(
+                return _openRegisterWindow
+                       ?? (_openRegisterWindow = new RelayCommand(
                            (o) =>
                            {
                                var win = new RegisterWindow(new RegisterWindowViewModel()
@@ -131,5 +124,7 @@ namespace Client.ViewModel
                            (o) => true));
             }
         }
+
+        #endregion
     }
 }

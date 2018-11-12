@@ -10,6 +10,8 @@ namespace Client.ViewModel
 {
     public class AddRecipeWindowViewModel:ViewModelBase
     {
+        #region Private Fields
+
         private Recipe _recipe = new Recipe();
         private Recipe _output;
 
@@ -19,18 +21,19 @@ namespace Client.ViewModel
         private string _title;
         private string _imagePath;
 
+        #endregion
+
+        #region Properties
         public Recipe Output
         {
             get => _output;
             set => _output = value;
         }
-
         public Recipe Recipe
         {
             get => _recipe;
             set => _recipe = value;
         }
-
         public string Author
         {
             get => _author;
@@ -41,13 +44,11 @@ namespace Client.ViewModel
                 OnPropertyChanged(nameof(Author));
             }
         }
-
         public int Id
         {
             get => _id;
             set => _id = value;
         }
-
         public string TextXml
         {
             get => _textXml;
@@ -57,9 +58,7 @@ namespace Client.ViewModel
                 Recipe.TextXml = _textXml;
                 OnPropertyChanged(nameof(TextXml));
             }
-        }
-
-        public string Title
+        }public string Title
         {
             get => _title;
             set
@@ -69,7 +68,6 @@ namespace Client.ViewModel
                 OnPropertyChanged(nameof(Title));
             }
         }
-
         public string ImagePath
         {
             get => _imagePath;
@@ -80,6 +78,7 @@ namespace Client.ViewModel
                 OnPropertyChanged(nameof(ImagePath));
             }
         }
+        #endregion
 
         #region relayCommands
 

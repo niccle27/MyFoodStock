@@ -8,9 +8,15 @@ namespace Client.Model
 {
     public class FoodCategoryAndSubs
     {
+        #region Private Fields
+
         Dictionary<string, int> subCategory = new Dictionary<string, int>();
         private int id;
         private string name;
+
+        #endregion
+
+        #region Properties
 
         public Dictionary<string, int> SubCategory
         {
@@ -29,5 +35,7 @@ namespace Client.Model
             get => name;
             set => name = value;
         }
+
+        #endregion
     }
 }

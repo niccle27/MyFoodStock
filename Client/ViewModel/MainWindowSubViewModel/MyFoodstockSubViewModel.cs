@@ -13,12 +13,7 @@ namespace Client.ViewModel.MainWindowSubViewModel
 {
     public class MyFoodstockSubViewModel:MainWindowSubViewModelBase
     {
-        private FoodCategoryAndSubs _selectedCategory;
-        private KeyValuePair<string,int> _selectedSubCategory;
-        private Food _selectedFood;
-
-        private ObservableCollection<Food> _listFoods;
-        private List<FoodCategoryAndSubs> _listFoodCategoryAndSubs;
+        #region Ctor
 
         public MyFoodstockSubViewModel(ObservableCollection<Food> listFoods, List<FoodCategoryAndSubs> listFoodCategoryAndSubs)
         {
@@ -27,7 +22,25 @@ namespace Client.ViewModel.MainWindowSubViewModel
             SelectedCategory = ListFoodCategoryAndSubs.First();
             SelectedSubCategory = SelectedCategory.SubCategory.First();
         }
+
+        #endregion
+
+        #region Private Fields
+
+        private FoodCategoryAndSubs _selectedCategory;
+        private KeyValuePair<string,int> _selectedSubCategory;
+        private Food _selectedFood;
+
+        private ObservableCollection<Food> _listFoods;
+        private List<FoodCategoryAndSubs> _listFoodCategoryAndSubs;
+
+        #endregion
+
+
         //TODO filtering : https://dzone.com/articles/filtering-mvvm-architecture
+
+        #region Properties
+
         public FoodCategoryAndSubs SelectedCategory
         {
             get => _selectedCategory;
@@ -70,14 +83,16 @@ namespace Client.ViewModel.MainWindowSubViewModel
             set => _listFoods = value;
         }
 
-        #region MyRegion
+        #endregion
 
-        private RelayCommand _removeCommand;
+        #region RelayCommands
+
+        private RelayCommand _removeFoodCommand;
 
         public RelayCommand RemoveCommand
         {
-            get => _removeCommand;
-            set => _removeCommand = value;
+            get => _removeFoodCommand;
+            set => _removeFoodCommand = value;
         }
 
         #endregion

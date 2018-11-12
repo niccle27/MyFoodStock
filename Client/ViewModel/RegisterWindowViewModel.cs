@@ -11,14 +11,19 @@ namespace Client.ViewModel
 {
     public class RegisterWindowViewModel:ViewModelBase
     {
+        #region Private Fields
+
         private string _login;
         private string _password;
         private string _confirmedPassword;
         private bool _passwordsDontMatch = false;
         private bool _loginAlreadyTaken = false;
 
-        
         private UserServiceClient userServiceClient;
+        #endregion
+
+        
+ 
 
         public UserServiceClient UserServiceClient
         {

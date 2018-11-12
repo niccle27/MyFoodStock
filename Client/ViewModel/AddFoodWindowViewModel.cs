@@ -11,6 +11,9 @@ namespace Client.ViewModel
 {
     public class AddFoodWindowViewModel : ViewModelBase
     {
+
+        #region Ctor
+
         public AddFoodWindowViewModel(List<FoodCategoryAndSubs> listFoodCategoryAndSubs, Food foodOutputReference)
         {
             _listFoodCategoryAndSubs = listFoodCategoryAndSubs;
@@ -26,6 +29,14 @@ namespace Client.ViewModel
             SelectedCategory = ListFoodCategoryAndSubs.First();
             SelectedSubCategory = SelectedCategory.SubCategory.First();
         }
+        public AddFoodWindowViewModel()
+        {
+
+        }
+
+        #endregion
+
+        #region Private Fields
 
         private List<FoodCategoryAndSubs> _listFoodCategoryAndSubs;
 
@@ -35,6 +46,10 @@ namespace Client.ViewModel
 
         private Food _output;
         private Food _food;
+
+        #endregion
+
+        #region Properties
 
         public Food Output
         {
@@ -69,13 +84,6 @@ namespace Client.ViewModel
                 OnPropertyChanged(nameof(SelectedSubCategory));
             }
         }
-
-        public AddFoodWindowViewModel()
-        {
-            
-        }
-
-
         public string Name
         {
             get => _food.Name;
@@ -85,7 +93,6 @@ namespace Client.ViewModel
                 OnPropertyChanged(nameof(Name));
             }
         }
-
         public int Quantity
         {
             get => _food.Quantity;
@@ -95,7 +102,6 @@ namespace Client.ViewModel
                 OnPropertyChanged(nameof(Quantity));
             }
         }
-
         public DateTime ExpirationDate
         {
             get => _food.ExpirationDate;
@@ -105,7 +111,6 @@ namespace Client.ViewModel
                 OnPropertyChanged(nameof(ExpirationDate));
             }
         }
-
         public int Price
         {
             get => _food.Price;
@@ -115,7 +120,6 @@ namespace Client.ViewModel
                 OnPropertyChanged(nameof(Price));
             }
         }
-
         public string Unit
         {
             get => _food.Unit;
@@ -125,7 +129,6 @@ namespace Client.ViewModel
                 OnPropertyChanged(nameof(Unit));
             }
         }
-
         public int IdCategory
         {
             get => _food.IdCategory;
@@ -145,6 +148,10 @@ namespace Client.ViewModel
             }
         }
 
+        #endregion
+
+        #region RelayCommands
+
         private RelayCommand _createFood;
 
         /// <summary>
@@ -155,26 +162,28 @@ namespace Client.ViewModel
             get
             {
                 return _createFood
-                    ?? (_createFood = new RelayCommand(
+                       ?? (_createFood = new RelayCommand(
                            (o) =>
                            {
                                Output = _food;
                                CloseWindow();
                            },
-                        (o) =>
-                        {
-                            if(!String.IsNullOrWhiteSpace(Name) &&
-                              Quantity != 0 &&
-                              ExpirationDate >= DateTime.Now &&
-                              //Price !=0 && //TODO décommenter si on veut ajouter les prix
-                              IdCategory != 0 &&
-                              IdSubCategory != 0)return true;
-                            else
-                            {
-                                return false;
-                            }
-                        }));
+                           (o) =>
+                           {
+                               if(!String.IsNullOrWhiteSpace(Name) &&
+                                  Quantity != 0 &&
+                                  ExpirationDate >= DateTime.Now &&
+                                  //Price !=0 && //TODO décommenter si on veut ajouter les prix
+                                  IdCategory != 0 &&
+                                  IdSubCategory != 0)return true;
+                               else
+                               {
+                                   return false;
+                               }
+                           }));
             }
         }
+
+        #endregion
     }
 }
