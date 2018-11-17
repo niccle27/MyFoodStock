@@ -16,6 +16,11 @@ namespace FoodManagerService.Database
         {
             _connection = connection;
         }
+        /// <summary>
+        /// retrieve list 
+        /// </summary>
+        /// <param name="idUser"></param>
+        /// <returns>list</returns>
         public List<Recipe> GetList(int idUser)
         {
             List<Recipe> outputList = new List<Recipe>();
@@ -46,7 +51,12 @@ namespace FoodManagerService.Database
             _connection.Close();
             return outputList;
         }
-
+        /// <summary>
+        /// create recipe
+        /// </summary>
+        /// <param name="recipe"></param>
+        /// <param name="idUser"></param>
+        /// <returns>id</returns>
         public int Create(Recipe recipe, int idUser)
         {
             _connection.Open();
@@ -67,7 +77,11 @@ namespace FoodManagerService.Database
             _connection.Close();
             return id;
         }
-
+        /// <summary>
+        /// update recipe
+        /// </summary>
+        /// <param name="recipe"></param>
+        /// <param name="idUser"></param>
         public void Update(Recipe recipe,int idUser)
         {
             _connection.Open();
@@ -89,7 +103,11 @@ namespace FoodManagerService.Database
             cmd.ExecuteNonQuery();
             _connection.Close();
         }
-
+        /// <summary>
+        /// delete recipe
+        /// </summary>
+        /// <param name="recipe"></param>
+        /// <param name="idUser"></param>
         public void Delete(Recipe recipe, int idUser)
         {
             _connection.Open();

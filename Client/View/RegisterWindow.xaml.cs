@@ -20,6 +20,11 @@ namespace Client.View
     /// </summary>
     public partial class RegisterWindow : Window
     {
+        /// <summary>
+        /// create a register window using a viewModel created in the connected window
+        /// in order to pass the same userServiceClient
+        /// </summary>
+        /// <param name="viewModel"> viewModel containing the userServiceClient</param>
         public RegisterWindow(RegisterWindowViewModel viewModel)
         {
             InitializeComponent();

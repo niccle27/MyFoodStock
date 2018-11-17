@@ -14,7 +14,7 @@ namespace FoodManagerService
         private const string _database = "my_food_stock";
         private const MySqlSslMode _sslMode = MySqlSslMode.None;
         /// <summary>
-        /// get static MySqlConnection instance
+        /// create a conection to the database
         /// </summary>
         /// <returns>connection to the database</returns>
         public static MySqlConnection CreateConnection()

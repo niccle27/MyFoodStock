@@ -20,12 +20,10 @@ namespace Client.View
     /// </summary>
     public partial class ShowRecipeWindow : Window
     {
-/*        public ShowRecipeWindow()//TODO erase on produciton
-        {
-            string textXml= System.IO.File.ReadAllText(@"C:\Users\cleme\source\repos\RecipeGUITest\RecipeGUITest\Recipe.xml");
-            InitializeComponent();
-            DataContext = new ShowRecipeWindowViewModel(textXml);
-        }*/
+        /// <summary>
+        /// create a window showing a well presented recipe tutorial
+        /// </summary>
+        /// <param name="textXml">xml containing all the information to be parsed</param>
         public ShowRecipeWindow(string textXml)
         {
             InitializeComponent();

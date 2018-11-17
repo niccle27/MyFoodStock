@@ -19,6 +19,15 @@ namespace Client.ViewModel
     public class MainWindowViewModel: ViewModelBase
     {
         #region Ctor
+        /// <summary>
+        /// hydrate the user value
+        /// create retryManager
+        /// hydrade listFoodCategoryAndSubs from xml
+        /// hydrate ObservableListFoods
+        /// hydrate ObservableListFoods
+        /// create Subviews
+        /// </summary>
+        /// <param name="mUser"></param>
         public MainWindowViewModel(User mUser)
         {
             User defaultUser = new User()//todo delete en production 
@@ -118,6 +127,9 @@ namespace Client.ViewModel
         private RelayCommand _updateFoodCommand;
         private RelayCommand _openRecipeCommand;
 
+        /// <summary>
+        /// action : show Recipe window
+        /// </summary>
         public RelayCommand OpenRecipeCommand
         {
             get
@@ -132,6 +144,10 @@ namespace Client.ViewModel
                            (o) => true));
             }
         }
+        /// <summary>
+        /// action : create addFoodWindow and retrieve food
+        /// check if it succeed and add the food to collection and bdd
+        /// </summary>
         public RelayCommand CreateFoodCommand
         {
             get
@@ -155,6 +171,10 @@ namespace Client.ViewModel
                            (o) => true));
             }
         }
+        /// <summary>
+        /// create addRecipeWindow and retrieve recipe
+        /// check if it succeed and add the recipe to collection and bdd
+        /// </summary>
         public RelayCommand CreateRecipeCommand
         {
             get
@@ -178,6 +198,9 @@ namespace Client.ViewModel
                     (o) => true));
             }
         }
+        /// <summary>
+        /// show aboutWindow
+        /// </summary>
         public RelayCommand ShowAboutWindowCommand
         {
             get
@@ -193,6 +216,9 @@ namespace Client.ViewModel
                     (o) => true));
             }
         }
+        /// <summary>
+        /// Delete Food from collection and bdd
+        /// </summary>
         public RelayCommand DeleteFoodCommand
         {
             get
@@ -208,7 +234,10 @@ namespace Client.ViewModel
                     (o) => true));
             }
         }
-        public RelayCommand DeleteRecipeCommand//TODO modifier, ici copier coller de deleteFoodCommand
+        /// <summary>
+        /// delete Recipe from collection and bdd
+        /// </summary>
+        public RelayCommand DeleteRecipeCommand
         {
             get
             {
@@ -228,6 +257,10 @@ namespace Client.ViewModel
                            }));
             }
         }
+        /// <summary>
+        /// action : update recipe from collection and bdd
+        /// canexecute : only if the author is the user 
+        /// </summary>
         public RelayCommand UpdateRecipeCommand
         {
             get
@@ -243,15 +276,26 @@ namespace Client.ViewModel
                             if (retryManager.RetryUpdateRecipe(recipeFromWindow, user)==true)
                             {
                                 ObservableListRecipes.Remove(ObservableListRecipes.First(x => x.Id == recipeSelected.Id));
-                                ((RecipesSubViewModel) SubViewDictionary["Recipes"]).SelectedRecipe =
-                                    ObservableListRecipes.First();
                                 ObservableListRecipes.Add(recipeFromWindow);
+                                ((RecipesSubViewModel) SubViewDictionary["Recipes"]).SelectedRecipe = recipeFromWindow;
                             }
                         }
                     },
-                    (o) => ((RecipesSubViewModel)SubViewDictionary["Recipes"]).SelectedRecipe.Author == user.Login));
+                    (o) =>
+                    {
+                        if(((RecipesSubViewModel)SubViewDictionary["Recipes"]).SelectedRecipe!=null)
+                        {
+                            return ((RecipesSubViewModel)SubViewDictionary["Recipes"]).SelectedRecipe.Author ==
+                                   user.Login;
+                        }
+
+                        return false;
+                    }));
             }
         }
+        /// <summary>
+        /// action : update food in the collection and in the bdd
+        /// </summary>
         public RelayCommand UpdateFoodCommand
         {
             get
@@ -277,6 +321,9 @@ namespace Client.ViewModel
         #endregion
 
         #region Nested class
+        /// <summary>
+        /// static class to store the function in order to load the list FoodCategoryAndSubs from XML
+        /// </summary>
         private static class FoodCategoriesAndSubsLoader
         {
             public static List<FoodCategoryAndSubs> GetCategoriesList(XElement categoriesXML)
@@ -304,6 +351,10 @@ namespace Client.ViewModel
                 return categoriesList;
             }
         }
+        /// <summary>
+        /// creation of a retry manager in order to make it transparent for the user when the token become invalid
+        /// if the token is invalid it goes ask for a new one and retry
+        /// </summary>
         private  class RetryManager
         {
             public RetryManager(UserServiceClient userServiceClient, FoodManagerServiceClient foodManagerServiceClient)

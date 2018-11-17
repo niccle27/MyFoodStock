@@ -14,7 +14,12 @@ namespace Client.ViewModel.MainWindowSubViewModel
     public class MyFoodstockSubViewModel:MainWindowSubViewModelBase
     {
         #region Ctor
-
+        /// <summary>
+        /// associate ListFoods and ListFoodCategoryAndSubs and the SelectedCategory
+        /// and SelectedCategory
+        /// </summary>
+        /// <param name="listFoods">list of foods from mainwindow</param>
+        /// <param name="listFoodCategoryAndSubs">created from xml </param>
         public MyFoodstockSubViewModel(ObservableCollection<Food> listFoods, List<FoodCategoryAndSubs> listFoodCategoryAndSubs)
         {
             ListFoods = listFoods;
@@ -103,7 +108,10 @@ namespace Client.ViewModel.MainWindowSubViewModel
         #endregion
 
         #region Filter
-
+        /// <summary>
+        /// apply filtering to the view based on the combobox
+        /// </summary>
+        /// <param name="listFoods"></param>
         private void ApplyFilterOnView(ObservableCollection<Food> listFoods)
         {
             CollectionView view = (CollectionView) CollectionViewSource.GetDefaultView(listFoods);

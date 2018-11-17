@@ -11,7 +11,10 @@ namespace Client.ViewModel
     public class AddRecipeWindowViewModel:ViewModelBase
     {
         #region ctor
-
+        /// <summary>
+        /// deep copy recipeOutputReference into _recipe
+        /// </summary>
+        /// <param name="recipeOutputReference"></param>
         public AddRecipeWindowViewModel(Recipe recipeOutputReference)
         {
             if (recipeOutputReference != null)
@@ -27,10 +30,10 @@ namespace Client.ViewModel
             }
             else
             {
-                _recipe = new Recipe()
+                _recipe = new Recipe()//TODO delete in prod
                 {
                     TextXml = System.IO.File.ReadAllText(@"C:\Users\cleme\source\repos\MyFoodStock\Client\Ressources\XML\baseRecipe.xml")
-            };
+                };
             }
         }
         #endregion
@@ -99,7 +102,8 @@ namespace Client.ViewModel
         private RelayCommand _createRecipeCommand;
 
         /// <summary>
-        /// Gets the MyCommand.
+        /// action : set output to Recipe and close the window
+        /// canexecute : check whether all fields aren't empty
         /// </summary>
         public RelayCommand CreateRecipeCommand
         {

@@ -9,7 +9,7 @@ using System.Windows.Controls;
 namespace Client.Helper
 {
     /// <summary>
-    /// This class is from https://www.wpftutorial.net/PasswordBox.html
+    /// This class is from https://www.wpftutorial.net/PasswordBox.html make it possible to bind to a passwordBox
     /// </summary>
     public static class PasswordHelper
     {

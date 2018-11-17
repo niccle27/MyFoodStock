@@ -21,18 +21,27 @@ namespace Client.View
     /// </summary>
     public partial class AddRecipeWindow : Window
     {
+        /// <summary>
+        /// create a window in order to create a Recipe
+        /// </summary>
         public AddRecipeWindow()
         {
             InitializeComponent();
             DataContext = new AddRecipeWindowViewModel(null);
         }
-
+        /// <summary>
+        /// create a window in order to update a recipe
+        /// </summary>
+        /// <param name="recipe">recipe to update</param>
         public AddRecipeWindow(Recipe recipe)
         {
             InitializeComponent();
             DataContext = new AddRecipeWindowViewModel(recipe);
         }
-
+        /// <summary>
+        /// hide the default ShowDialog method in order to return the recipe created or updated
+        /// </summary>
+        /// <returns>recipe created or updated</returns>
         public new Recipe ShowDialog()
         {
             base.ShowDialog();

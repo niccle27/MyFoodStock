@@ -21,7 +21,6 @@ namespace FoodManagerService
         ValidatorCRUD<Recipe> _recipeValidatorCrud = new ValidatorCRUD<Recipe>();
         /// <summary>
         /// get the userId that match the token, return null if not found,0 if token outdated
-        /// 
         /// </summary>
         /// <param name="userToken"></param>
         /// <returns>return the userId that match the token, return null if not found,0 if token outdated</returns>
@@ -46,25 +45,45 @@ namespace FoodManagerService
         }
 
         #region Food CRUD
+        /// <summary>
+        /// insert food into database if usertoken is valid
+        /// </summary>
+        /// <param name="food"></param>
+        /// <param name="userToken"></param>
+        /// <returns>return id if succeed , 0 if token outdated and null if fake token</returns>
         public int? CreateFood(Food food, string userToken)
         {
             int? userId = GetUserId(userToken);
             return _foodValidatorCrud.ValidCreate(food, userId, _foodDao);
 
         }
-
+        /// <summary>
+        /// get food list if userid linked to that token
+        /// </summary>
+        /// <param name="userToken"></param>
+        /// <returns>list food if usertoken match and is valid, 0 if token outdated and null if fake token</returns>
         public List<Food> GetFoodList(string userToken)
         {
             int? userId = GetUserId(userToken);
             return _foodValidatorCrud.ValidGetList(userId, _foodDao);
         }
-
+        /// <summary>
+        /// update food 
+        /// </summary>
+        /// <param name="food"></param>
+        /// <param name="userToken"></param>
+        /// <returns>return true if succeed, false if token outdated and null if faketoken or token don't match food userid</returns>
         public bool? UpdateFood(Food food, string userToken)
         {
             int? userId = GetUserId(userToken);
             return _foodValidatorCrud.ValidUpdate(food, userId, _foodDao);
         }
-
+        /// <summary>
+        /// delete food
+        /// </summary>
+        /// <param name="food"></param>
+        /// <param name="userToken"></param>
+        /// <returns>true if succeed, 0 if token outdated and null if fake token or token don't match userid</returns>
         public bool? DeleteFood(Food food, string userToken)
         {
             int? userId = GetUserId(userToken);
@@ -74,24 +93,44 @@ namespace FoodManagerService
         #endregion
 
         #region Recipe CRUD
+        /// <summary>
+        /// insert Recipe
+        /// </summary>
+        /// <param name="recipe"></param>
+        /// <param name="userToken"></param>
+        /// <returns>id if succeed, 0 if token outdated , null if fake token</returns>
         public int? CreateRecipe(Recipe recipe, string userToken)
         {
             int? userId = GetUserId(userToken);
             return _recipeValidatorCrud.ValidCreate(recipe, userId, _recipeDao);
         }
-
+        /// <summary>
+        /// get recipeList
+        /// </summary>
+        /// <param name="userToken"></param>
+        /// <returns>return id if succeed, 0 if token outdated and null if fake token</returns>
         public List<Recipe> GetRecipesList(string userToken)
         {
             int? userId = GetUserId(userToken);
             return _recipeValidatorCrud.ValidGetList(userId, _recipeDao);
         }
-
+        /// <summary>
+        /// update recipe
+        /// </summary>
+        /// <param name="recipe"></param>
+        /// <param name="userToken"></param>
+        /// <returns>return true if succeed, false if token outdated and null if fake token</returns>
         public bool? UpdateRecipe(Recipe recipe, string userToken)
         {
             int? userId = GetUserId(userToken);
             return _recipeValidatorCrud.ValidUpdate(recipe, userId, _recipeDao);
         }
-
+        /// <summary>
+        /// delete recipe
+        /// </summary>
+        /// <param name="recipe"></param>
+        /// <param name="userToken"></param>
+        /// <returns>return true if succeed, false if token outdated and null if fake token</returns>
         public bool? DeleteRecipe(Recipe recipe, string userToken)
         {
             int? userId = GetUserId(userToken);
@@ -103,6 +142,10 @@ namespace FoodManagerService
         #endregion
 
         #region Nested Class
+        /// <summary>
+        /// validate if crud action succeed or not
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
         private class ValidatorCRUD<T> where  T : new()
         {
             public int? ValidCreate(T item, int? userId, IDao<T> dao)

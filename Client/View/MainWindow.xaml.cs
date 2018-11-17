@@ -22,11 +22,18 @@ namespace Client
     /// </summary>
     public partial class MainWindow : Window
     {
+        /// <summary>
+        /// create the mainWindow using the authenticated user
+        /// </summary>
+        /// <param name="user">authenticated user from connected or register window</param>
         public MainWindow(User user)
         {
             InitializeComponent();
             DataContext = new MainWindowViewModel(user);
         }
+        /// <summary>
+        /// create the mainwindow using the default user, should be disable in production
+        /// </summary>
         public MainWindow()
         {
             InitializeComponent();

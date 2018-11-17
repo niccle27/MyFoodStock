@@ -61,7 +61,11 @@ namespace Client.ViewModel
         private RelayCommand _connectCommand;
         private RelayCommand _resetCommand;
         private RelayCommand _openRegisterWindow;
-
+        /// <summary>
+        /// action : call userServiceClient to try to get the token,
+        /// set the flag to error message in case the returned value is null
+        /// can execute : check whether all fields aren't null
+        /// </summary>
         public RelayCommand ConnectionCommand
         {
             get
@@ -91,6 +95,9 @@ namespace Client.ViewModel
                            (o) => { return !(String.IsNullOrWhiteSpace(Login) || String.IsNullOrWhiteSpace(Password)); }));
             }
         }
+        /// <summary>
+        /// action : reset all fields
+        /// </summary>
         public RelayCommand ResetCommand
         {
             get
@@ -106,6 +113,9 @@ namespace Client.ViewModel
                            (o) => true));
             }
         }
+        /// <summary>
+        /// action : open a register windows and close the current windows
+        /// </summary>
         public RelayCommand OpenRegisterWindowCommand
         {
             get

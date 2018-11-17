@@ -9,6 +9,9 @@ using Client.Annotations;
 
 namespace Client.ViewModel.MainWindowSubViewModel
 {
+    /// <summary>
+    /// base for MainWindowSubView
+    /// </summary>
     public class MainWindowSubViewModelBase:INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;

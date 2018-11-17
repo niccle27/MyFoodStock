@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 
 namespace FoodManagerService.Database
 {
+    /// <summary>
+    /// base interface for dao in order to have low coupling for validation
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     interface IDao<T> where T: new()
     {
         List<T> GetList(int userId);

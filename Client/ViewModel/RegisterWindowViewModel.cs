@@ -22,8 +22,7 @@ namespace Client.ViewModel
         private UserServiceClient userServiceClient;
         #endregion
 
-        
- 
+        #region Properties
 
         public UserServiceClient UserServiceClient
         {
@@ -82,10 +81,13 @@ namespace Client.ViewModel
             }
         }
 
+        #endregion
+
         private RelayCommand registerCommand;
 
         /// <summary>
-        /// Gets the MyCommand.
+        /// action : Send a registration request and connect directly in case of success
+        /// canExecute: only if none of the fields are empty
         /// </summary>
         public RelayCommand RegisterCommand
         {

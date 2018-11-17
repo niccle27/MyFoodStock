@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Client.Model
 {
+    /// <summary>
+    /// This is a poco in order to load link all the subcategory for one category into one object in order to facilitate de combobox binding
+    /// </summary>
     public class FoodCategoryAndSubs
     {
         #region Private Fields

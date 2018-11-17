@@ -9,7 +9,10 @@ namespace Client.ViewModel
 {
     public class ShowRecipeWindowViewModel
     {
-
+        /// <summary>
+        /// hydrate everything from xml 
+        /// </summary>
+        /// <param name="textXml"></param>
         public ShowRecipeWindowViewModel(string textXml)
         {
             XElement recipe;

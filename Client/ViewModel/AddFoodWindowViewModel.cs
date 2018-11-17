@@ -13,7 +13,18 @@ namespace Client.ViewModel
     {
 
         #region Ctor
-
+        /// <summary>
+        /// in case of update
+        /// deep copy foodOutputReference into _food
+        /// hydrate listFoodCategoryAndSubs
+        /// set validationButtonContent to update
+        /// set current category and sub
+        /// in case of create
+        /// create a food and set expiration date as today
+        /// set the category and sub to first value each
+        /// </summary>
+        /// <param name="listFoodCategoryAndSubs"></param>
+        /// <param name="foodOutputReference"></param>
         public AddFoodWindowViewModel(List<FoodCategoryAndSubs> listFoodCategoryAndSubs, Food foodOutputReference)
         {
             _listFoodCategoryAndSubs = listFoodCategoryAndSubs;
@@ -177,7 +188,8 @@ namespace Client.ViewModel
         private RelayCommand _createFood;
 
         /// <summary>
-        /// Gets the MyCommand.
+        /// action set output to food created by the window and then close the window
+        /// canexecute check whether each field is not empty
         /// </summary>
         public RelayCommand CreateFoodCommand
         {

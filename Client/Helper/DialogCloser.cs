@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 using System.Windows;
 
 namespace Client.Helper
-{public static class DialogCloser
+{
+    /// <summary>
+    /// this class from the csharpcorner make it possible to invoke the closing of the View using a flag binding
+    /// </summary>
+    public static class DialogCloser
     {
         public static readonly DependencyProperty DialogResultProperty =
             DependencyProperty.RegisterAttached(
