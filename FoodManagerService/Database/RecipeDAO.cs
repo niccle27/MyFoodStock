@@ -28,7 +28,8 @@ namespace FoodManagerService.Database
                               "text_xml," +
                               "picture_path," +
                               "login AS author" +
-                              " FROM recipes LEFT JOIN users ON recipes.id_user = users.id"
+                              " FROM recipes LEFT JOIN users ON recipes.id_user = users.id " +
+                              "ORDER BY title"
             };
             MySqlDataReader reader = cmd.ExecuteReader();
             while (reader.Read())
@@ -74,9 +75,9 @@ namespace FoodManagerService.Database
             {
                 Connection = _connection,
                 CommandText = "UPDATE recipes SET " +
-                              "title = @title" +
-                              "text_xml = @text_xml" +
-                              ",picture_path = @picture_path" +
+                              "title = @title," +
+                              "text_xml = @text_xml," +
+                              "picture_path = @picture_path" +
                               " WHERE id = @id AND id_user = @id_user"
             };
             cmd.Prepare();

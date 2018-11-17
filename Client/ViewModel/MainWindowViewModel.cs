@@ -47,7 +47,11 @@ namespace Client.ViewModel
                 {
                     "Recipes", new RecipesSubViewModel()
                     {
-                        ListRecipes = ObservableListRecipes
+                        ListRecipes = ObservableListRecipes,
+                        SelectedRecipe = ObservableListRecipes.First(),
+                        OpenRecipeCommand = OpenRecipeCommand,
+                        DeleteRecipeCommand = DeleteRecipeCommand,
+                        UpdateRecipeCommand = UpdateRecipeCommand
                     }
                 }
             };
@@ -112,7 +116,22 @@ namespace Client.ViewModel
         private RelayCommand _deleteRecipeCommand;
         private RelayCommand _updateRecipeCommand;
         private RelayCommand _updateFoodCommand;
+        private RelayCommand _openRecipeCommand;
 
+        public RelayCommand OpenRecipeCommand
+        {
+            get
+            {
+                return _openRecipeCommand
+                       ?? (_openRecipeCommand = new RelayCommand(
+                           (o) =>
+                           {
+                               Recipe recipe = (Recipe)o;
+                               new ShowRecipeWindow(recipe.TextXml).ShowDialog();
+                           },
+                           (o) => true));
+            }
+        }
         public RelayCommand CreateFoodCommand
         {
             get
@@ -151,6 +170,7 @@ namespace Client.ViewModel
                                    if ((id = retryManager.RetryCreateRecipe(recipe, User)) != null)
                                    {
                                        recipe.Id=(int)id;
+                                       recipe.Author = User.Login;
                                        ObservableListRecipes.Add(recipe);
                                    }
                                }
@@ -196,11 +216,16 @@ namespace Client.ViewModel
                        ?? (_deleteRecipeCommand = new RelayCommand(
                            (o) =>
                            {
-                               Food food = (Food)o;
-                               retryManager.RetryDeleteFood(food, User);
-                               ObservableListFoods.Remove(food);
+                               Recipe recipe = (Recipe)o;
+                               retryManager.RetryDeleteRecipe(recipe, User);
+                               ObservableListRecipes.Remove(recipe);
+                               ((RecipesSubViewModel)SubViewDictionary["Recipes"]).SelectedRecipe =
+                                   ObservableListRecipes.First();
                            },
-                           (o) => true));
+                           (o) =>
+                           {
+                               return ((RecipesSubViewModel)SubViewDictionary["Recipes"]).SelectedRecipe.Author == user.Login;
+                           }));
             }
         }
         public RelayCommand UpdateRecipeCommand
@@ -217,19 +242,16 @@ namespace Client.ViewModel
                         {
                             if (retryManager.RetryUpdateRecipe(recipeFromWindow, user)==true)
                             {
-                                ObservableListRecipes.Remove(ObservableListRecipes.Where((x)=>x.Id == recipeSelected.Id).First());
+                                ObservableListRecipes.Remove(ObservableListRecipes.First(x => x.Id == recipeSelected.Id));
+                                ((RecipesSubViewModel) SubViewDictionary["Recipes"]).SelectedRecipe =
+                                    ObservableListRecipes.First();
                                 ObservableListRecipes.Add(recipeFromWindow);
                             }
                         }
                     },
-                    (o) => true));
+                    (o) => ((RecipesSubViewModel)SubViewDictionary["Recipes"]).SelectedRecipe.Author == user.Login));
             }
         }
-
-
-        /// <summary>
-        /// Gets the UpdateFoodCommand.
-        /// </summary>
         public RelayCommand UpdateFoodCommand
         {
             get
@@ -244,7 +266,7 @@ namespace Client.ViewModel
                         {
                             if (retryManager.RetryUpdateFood(foodFromWindow, user) == true)
                             {
-                                ObservableListFoods.Remove(ObservableListFoods.Where((x) => x.Id == foodSelected.Id).First());
+                                ObservableListFoods.Remove(ObservableListFoods.First(x => x.Id == foodSelected.Id));
                                 ObservableListFoods.Add(foodFromWindow);
                             }
                         }

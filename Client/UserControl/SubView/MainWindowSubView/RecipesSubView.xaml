@@ -15,7 +15,15 @@
         </Grid>
         <ListView Name="ListOfRecipes" ItemsSource="{Binding Path=ListRecipes}"
                   ScrollViewer.VerticalScrollBarVisibility="Visible"
-                  Height="350">
+                  Height="350"
+                  SelectedItem="{Binding SelectedRecipe}">
+            <ListView.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Open" Command="{Binding Path=OpenRecipeCommand}" CommandParameter="{Binding SelectedRecipe,Mode=OneWay}"/>
+                    <MenuItem Header="Remove" Command="{Binding Path=DeleteRecipeCommand}" CommandParameter="{Binding SelectedRecipe,Mode=OneWay}"/>
+                    <MenuItem Header="Update" Command="{Binding Path=UpdateRecipeCommand}" CommandParameter="{Binding SelectedRecipe,Mode=OneWay}"/>
+                </ContextMenu>
+            </ListView.ContextMenu>
             <ListView.ItemTemplate>
                 <DataTemplate DataType="{x:Type foodManagerService:Recipe}">
                     <datatemplate:RecipeListViewItemTemplate/>

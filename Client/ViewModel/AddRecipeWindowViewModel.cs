@@ -12,15 +12,25 @@ namespace Client.ViewModel
     {
         #region ctor
 
-        public AddRecipeWindowViewModel(Recipe recipe)
+        public AddRecipeWindowViewModel(Recipe recipeOutputReference)
         {
-            if (recipe == null)
+            if (recipeOutputReference != null)
             {
-                Recipe = new Recipe();
+                _recipe = new Recipe()
+                {
+                    Id = recipeOutputReference.Id,
+                    TextXml = recipeOutputReference.TextXml,
+                    Author =  recipeOutputReference.Author,
+                    ImagePath = recipeOutputReference.ImagePath,
+                    Title = recipeOutputReference.Title
+                };
             }
             else
             {
-                Recipe = recipe;
+                _recipe = new Recipe()
+                {
+                    TextXml = System.IO.File.ReadAllText(@"C:\Users\cleme\source\repos\MyFoodStock\Client\Ressources\XML\baseRecipe.xml")
+            };
             }
         }
         #endregion
@@ -28,12 +38,6 @@ namespace Client.ViewModel
         #region Private Fields
         private Recipe _recipe;
         private Recipe _output;
-
-        private string _author;
-        private int _id;
-        private string _textXml;
-        private string _title;
-        private string _imagePath;
 
         #endregion
 
@@ -50,45 +54,41 @@ namespace Client.ViewModel
         }
         public string Author
         {
-            get => _author;
+            get => Recipe.Author;
             set
             {
-                _author = value;
-                Recipe.Author = _author;
+                _recipe.Author = value;
                 OnPropertyChanged(nameof(Author));
             }
         }
         public int Id
         {
-            get => _id;
-            set => _id = value;
+            get => Recipe.Id;
+            set => _recipe.Id = value;
         }
         public string TextXml
         {
-            get => _textXml;
+            get => _recipe.TextXml;
             set
             {
-                _textXml = value;
-                Recipe.TextXml = _textXml;
+                _recipe.TextXml = value;
                 OnPropertyChanged(nameof(TextXml));
             }
         }public string Title
         {
-            get => _title;
+            get => _recipe.Title;
             set
             {
-                _title = value;
-                Recipe.Title = _title;
+                _recipe.Title = value;
                 OnPropertyChanged(nameof(Title));
             }
         }
         public string ImagePath
         {
-            get => _imagePath;
+            get => _recipe.ImagePath;
             set
             {
-                _imagePath = value;
-                Recipe.ImagePath = _imagePath;
+                _recipe.ImagePath = value;
                 OnPropertyChanged(nameof(ImagePath));
             }
         }

@@ -91,6 +91,7 @@
     <Compile Include="ViewModel\MainWindowSubViewModel\RecipesSubViewModel.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Compile Include="ViewModel\RegisterWindowViewModel.cs" />
+    <Compile Include="ViewModel\ShowRecipeWindowViewModel.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
     <Compile Include="View\AddFoodWindow.xaml.cs">
       <DependentUpon>AddFoodWindow.xaml</DependentUpon>
@@ -100,6 +101,9 @@
     </Compile>
     <Compile Include="View\RegisterWindow.xaml.cs">
       <DependentUpon>RegisterWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ShowRecipeWindow.xaml.cs">
+      <DependentUpon>ShowRecipeWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="UserControl\Datatemplate\RecipeListViewItemTemplate.xaml">
       <SubType>Designer</SubType>
@@ -141,6 +145,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="View\RegisterWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ShowRecipeWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -195,6 +203,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Ressources\XSD\" />
     <Folder Include="Validation\" />
   </ItemGroup>
   <ItemGroup>
@@ -249,6 +258,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Ressources\XML\Categories.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Ressources\XML\baseRecipe.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

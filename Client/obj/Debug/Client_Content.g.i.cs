@@ -8,6 +8,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("ressources/xml/categories.xml")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("ressources/xml/baserecipe.xml")]
 
 

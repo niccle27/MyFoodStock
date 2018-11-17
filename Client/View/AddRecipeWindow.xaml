@@ -19,7 +19,9 @@
             <Label Content="title:"/>
             <TextBox Text="{Binding Path=Title,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
             <Label Content="xml formated text"/>
-            <TextBox Height="300" Text="{Binding Path=TextXml,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox Height="300"
+                     AcceptsReturn="True"
+                     Text="{Binding Path=TextXml,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
             <Label Content="Image path"></Label>
             <TextBox Text="{Binding Path=ImagePath,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
