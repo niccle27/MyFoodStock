@@ -39,10 +39,35 @@ namespace Client.ViewModel.MainWindowSubViewModel
         private ObservableCollection<Food> _listFoods;
         private List<FoodCategoryAndSubs> _listFoodCategoryAndSubs;
 
+        private bool _isShowAllCategoryChecked;
+        private bool _isShowOnlyOutdatedProductsChecked;
+
+
         #endregion
 
-
         #region Properties
+
+        public bool IsShowAllCategoryChecked
+        {
+            get => _isShowAllCategoryChecked;
+            set
+            {
+                _isShowAllCategoryChecked = value;
+                OnPropertyChanged(nameof(IsShowAllCategoryChecked));
+                ApplyFilterOnView(ListFoods);
+            }
+        }
+
+        public bool IsShowOnlyOutdatedProductsChecked
+        {
+            get => _isShowOnlyOutdatedProductsChecked;
+            set
+            {
+                _isShowOnlyOutdatedProductsChecked = value;
+                OnPropertyChanged(nameof(IsShowOnlyOutdatedProductsChecked));
+                ApplyFilterOnView(ListFoods);
+            }
+        }
 
         public FoodCategoryAndSubs SelectedCategory
         {
@@ -50,6 +75,7 @@ namespace Client.ViewModel.MainWindowSubViewModel
             set
             {
                 _selectedCategory = value;
+                OnPropertyChanged(nameof(SelectedCategory));
                 ApplyFilterOnView(ListFoods);
             }
         }
@@ -60,6 +86,7 @@ namespace Client.ViewModel.MainWindowSubViewModel
             set
             {
                 _selectedSubCategory = value;
+                OnPropertyChanged(nameof(SelectedSubCategory));
                 ApplyFilterOnView(ListFoods);
             }
         }
@@ -121,12 +148,39 @@ namespace Client.ViewModel.MainWindowSubViewModel
         {
             if (item is Food food)
             {
-                if (food.IdCategory == SelectedCategory.Id && food.IdSubCategory == SelectedSubCategory.Value)
-                    return true;
+                if (IsShowAllCategoryChecked)
+                {
+                    if (IsShowOnlyOutdatedProductsChecked)
+                    {
+                        return food.ExpirationDate < DateTime.Now;
+                    }
+                    else
+                    {
+                        return true;
+                    }
+                }
                 else
                 {
-                    return false;
+                    if (IsShowOnlyOutdatedProductsChecked)
+                    {
+                        if (food.IdCategory == SelectedCategory.Id && food.IdSubCategory == SelectedSubCategory.Value)
+                            return food.ExpirationDate < DateTime.Now;
+                        else
+                        {
+                            return false;
+                        }
+                    }
+                    else
+                    {
+                        if (food.IdCategory == SelectedCategory.Id && food.IdSubCategory == SelectedSubCategory.Value)
+                            return true;
+                        else
+                        {
+                            return false;
+                        }
+                    }
                 }
+
             }
             else
             {

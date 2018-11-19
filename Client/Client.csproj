@@ -68,6 +68,8 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
     <Compile Include="Converter\BooleanVisibilityConverter.cs" />
+    <Compile Include="Converter\CheckDateValidity.cs" />
+    <Compile Include="Converter\InverseBooleanConverter.cs" />
     <Compile Include="Converter\QuantityUnitMultiValueConverter.cs" />
     <Compile Include="Helper\DialogCloser.cs" />
     <Compile Include="Helper\PasswordHelper.cs" />

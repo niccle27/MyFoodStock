@@ -8,6 +8,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
+        <converter:CheckDateValidity x:Key="CheckDateValidity"/>
         <Style TargetType="{x:Type ComboBox}">
             <Setter Property="Margin" Value="0,0,20,0"/>
             <Setter Property="Width" Value="120"/>
@@ -18,16 +19,26 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto"/>
                 <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <ComboBox Name="Categories" Grid.Column="0"
+            <CheckBox  Grid.Column="0" IsChecked="{Binding Path=IsShowAllCategoryChecked}">
+                <Label>ShowAllCategory</Label>
+            </CheckBox>
+            <CheckBox Grid.Column="1" IsChecked="{Binding Path=IsShowOnlyOutdatedProductsChecked}">
+                <Label>Show only outdated products</Label>
+            </CheckBox>
+            <ComboBox Name="Categories" Grid.Column="2"
                       ItemsSource="{Binding Path=ListFoodCategoryAndSubs}"
                       DisplayMemberPath="Name"
-                      SelectedItem="{Binding Path=SelectedCategory,Mode=TwoWay}"/>
-            <ComboBox Name="SubCategories" Grid.Column="1"
+                      SelectedItem="{Binding Path=SelectedCategory,Mode=TwoWay}"
+                      IsEnabled="{Binding Path=IsShowAllCategoryChecked,Converter={StaticResource InverseBooleanConverter}}"/>
+            <ComboBox Name="SubCategories" Grid.Column="3"
                       ItemsSource="{Binding ElementName=Categories,Path=SelectedItem.SubCategory}"
                       DisplayMemberPath="Key"
-                      SelectedItem="{Binding Path=SelectedSubCategory,Mode=TwoWay}"/>
+                      SelectedItem="{Binding Path=SelectedSubCategory,Mode=TwoWay}"
+                      IsEnabled="{Binding Path=IsShowAllCategoryChecked,Converter={StaticResource InverseBooleanConverter}}"/>
         </Grid>
         <ListView Name="FoodListView" ItemsSource="{Binding Path=ListFoods}"
                   ScrollViewer.VerticalScrollBarVisibility="Visible"

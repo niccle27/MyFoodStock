@@ -32,13 +32,9 @@
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="_Food">
                 <MenuItem Header="_New" Command="{Binding CreateFoodCommand}" />
-                <MenuItem Header="_Save changes" />
-                <MenuItem Header="_Discard changes" />
             </MenuItem>
             <MenuItem Header="_Recipe">
                 <MenuItem Header="_New" Command="{Binding CreateRecipeCommand}"/>
-                <MenuItem Header="_Save changes" />
-                <MenuItem Header="_Discard changes" />
             </MenuItem>
             <MenuItem Header="About" Command="{Binding Path= ShowAboutWindowCommand}"/>
         </Menu>

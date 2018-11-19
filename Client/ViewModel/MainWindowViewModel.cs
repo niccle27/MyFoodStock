@@ -34,7 +34,7 @@ namespace Client.ViewModel
             {
                 Login = "admin",
                 Password = "admin",
-                Token = "5FB1DB6AC20D391183AFDAD68E1E74D0"
+                Token = "35476D40AD60D59A21A600B450C084DE"
             };
             User = mUser ?? defaultUser;
 
