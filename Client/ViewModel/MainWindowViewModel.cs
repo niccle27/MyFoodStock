@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -369,7 +370,16 @@ namespace Client.ViewModel
             #region food CRUD
             public Food[] RetryGetFoodList(User user)
             {
-                var result = foodManagerServiceClient.GetFoodList(user.Token);
+                Food[] result={};
+                try
+                {
+                    result = foodManagerServiceClient.GetFoodList(user.Token);
+                }
+                catch (FaultException e)
+                {
+                    MessageBox.Show(e.Message);
+                }
+                
                 if (result.Length==0)
                 {
                     user.Token = userServiceClient.Connect(user.Login, user.Password);
@@ -380,7 +390,15 @@ namespace Client.ViewModel
 
             public int? RetryCreateFood(Food food, User user)
             {
-                var result = foodManagerServiceClient.CreateFood(food, user.Token);
+                int? result = null; 
+                try
+                {
+                    result = foodManagerServiceClient.CreateFood(food, user.Token);
+                }
+                catch (FaultException e)
+                {
+                    MessageBox.Show(e.Message);
+                }
                 if (result == 0)
                 {
                     user.Token = userServiceClient.Connect(user.Login, user.Password);
@@ -391,7 +409,15 @@ namespace Client.ViewModel
 
             public bool? RetryUpdateFood(Food food, User user)
             {
-                var result = foodManagerServiceClient.UpdateFood(food, user.Token);
+                bool? result = null;
+                try
+                {
+                    result = foodManagerServiceClient.UpdateFood(food, user.Token);
+                }
+                catch (FaultException e)
+                {
+                    MessageBox.Show(e.Message);
+                }
                 if (result == false)
                 {
                     user.Token = userServiceClient.Connect(user.Login, user.Password);
@@ -402,7 +428,15 @@ namespace Client.ViewModel
 
             public bool? RetryDeleteFood(Food food, User user)
             {
-                var result = foodManagerServiceClient.DeleteFood(food, user.Token);
+                bool? result = null;
+                try
+                {
+                    result = foodManagerServiceClient.DeleteFood(food, user.Token);
+                }
+                catch (FaultException e)
+                {
+                    MessageBox.Show(e.Message);
+                }
                 if (result == false)
                 {
                     user.Token = userServiceClient.Connect(user.Login, user.Password);
@@ -417,7 +451,15 @@ namespace Client.ViewModel
 
             public int? RetryCreateRecipe(Recipe recipe, User user)
             {
-                var result = foodManagerServiceClient.CreateRecipe(recipe, user.Token);
+                int? result = null;
+                try
+                {
+                    result = foodManagerServiceClient.CreateRecipe(recipe, user.Token);
+                }
+                catch (FaultException e)
+                {
+                    MessageBox.Show(e.Message);
+                }
                 if (result == 0)
                 {
                     user.Token = userServiceClient.Connect(user.Login, user.Password);
@@ -428,7 +470,15 @@ namespace Client.ViewModel
 
             public Recipe[] RetryGetRecipesList(User user)
             {
-                var result = foodManagerServiceClient.GetRecipesList(user.Token);
+                Recipe[] result = { };
+                try
+                {
+                    result = foodManagerServiceClient.GetRecipesList(user.Token);
+                }
+                catch (FaultException e)
+                {
+                    MessageBox.Show(e.Message);
+                }
                 if (result.Length == 0)
                 {
                     user.Token = userServiceClient.Connect(user.Login, user.Password);
@@ -439,7 +489,16 @@ namespace Client.ViewModel
 
             public bool? RetryUpdateRecipe(Recipe recipe, User user)
             {
-                var result = foodManagerServiceClient.UpdateRecipe(recipe, user.Token);
+                bool? result = null;
+                try
+                {
+                    result = foodManagerServiceClient.UpdateRecipe(recipe, user.Token);
+                }
+                catch (FaultException e)
+                {
+                    MessageBox.Show(e.Message);
+                }
+
                 if (result == false)
                 {
                     user.Token = userServiceClient.Connect(user.Login, user.Password);
@@ -450,7 +509,15 @@ namespace Client.ViewModel
 
             public bool? RetryDeleteRecipe(Recipe recipe, User user)
             {
-                var result = foodManagerServiceClient.DeleteRecipe(recipe, user.Token);
+                bool? result = null;
+                try
+                {
+                    result = foodManagerServiceClient.DeleteRecipe(recipe, user.Token);
+                }
+                catch (FaultException e)
+                {
+                    MessageBox.Show(e.Message);
+                }
                 if (result == false)
                 {
                     user.Token = userServiceClient.Connect(user.Login, user.Password);

@@ -27,13 +27,15 @@ namespace Client.ViewModel
                     ImagePath = recipeOutputReference.ImagePath,
                     Title = recipeOutputReference.Title
                 };
+                _buttonValidateContent = "update";
             }
             else
             {
-                _recipe = new Recipe()//TODO delete in prod
+                _recipe = new Recipe()
                 {
-                    TextXml = System.IO.File.ReadAllText(@"C:\Users\cleme\source\repos\MyFoodStock\Client\Ressources\XML\baseRecipe.xml")
+                    TextXml = System.IO.File.ReadAllText(@"C:\Users\cleme\source\repos\MyFoodStock\Client\Ressources\XML\baseRecipe.xml")//should be relative path
                 };
+                _buttonValidateContent = "add";
             }
         }
         #endregion
@@ -41,10 +43,15 @@ namespace Client.ViewModel
         #region Private Fields
         private Recipe _recipe;
         private Recipe _output;
-
+        private string _buttonValidateContent;
         #endregion
 
         #region Properties
+        public string ButtonValidateContent
+        {
+            get => _buttonValidateContent;
+            set => _buttonValidateContent = value;
+        }
         public Recipe Output
         {
             get => _output;

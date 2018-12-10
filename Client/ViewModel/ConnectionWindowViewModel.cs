@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using Client.AuthenticationServiceReference;
 using Client.Helper;
 using Client.View;
@@ -74,7 +76,16 @@ namespace Client.ViewModel
                        ?? (_connectCommand = new RelayCommand(
                            (o) =>
                            {
-                               string token = userServiceClient.Connect(Login,Password);
+                               string token=null;
+                               try
+                               {
+                                   token = userServiceClient.Connect(Login, Password);
+                               }
+                               catch (FaultException e)
+                               {
+                                   MessageBox.Show(e.Message);
+                               }
+                               
                                if (token != null)
                                {
                                    ConnectionFailed = false;

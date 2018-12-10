@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.ServiceModel;
 using System.Web;
 using FoodManagerService.Modele;
 using MySql.Data.MySqlClient;
@@ -24,31 +25,39 @@ namespace FoodManagerService.Database
         public List<Recipe> GetList(int idUser)
         {
             List<Recipe> outputList = new List<Recipe>();
-            _connection.Open();
-            MySqlCommand cmd = new MySqlCommand()
+            try
             {
-                Connection = _connection,
-                CommandText = "SELECT recipes.id AS id," +
-                              "title," +
-                              "text_xml," +
-                              "picture_path," +
-                              "login AS author" +
-                              " FROM recipes LEFT JOIN users ON recipes.id_user = users.id " +
-                              "ORDER BY title"
-            };
-            MySqlDataReader reader = cmd.ExecuteReader();
-            while (reader.Read())
-            {
-                outputList.Add(new Recipe()
+                _connection.Open();
+                MySqlCommand cmd = new MySqlCommand()
                 {
-                    Author = reader.GetString("author"),
-                    Id = reader.GetInt32("id"),
-                    Title = reader.GetString("title"),
-                    ImagePath = reader.GetString("picture_path"),
-                    TextXml = reader.GetString("text_xml")
-                });
+                    Connection = _connection,
+                    CommandText = "SELECT recipes.id AS id," +
+                                  "title," +
+                                  "text_xml," +
+                                  "picture_path," +
+                                  "login AS author" +
+                                  " FROM recipes LEFT JOIN users ON recipes.id_user = users.id " +
+                                  "ORDER BY title"
+                };
+                MySqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    outputList.Add(new Recipe()
+                    {
+                        Author = reader.GetString("author"),
+                        Id = reader.GetInt32("id"),
+                        Title = reader.GetString("title"),
+                        ImagePath = reader.GetString("picture_path"),
+                        TextXml = reader.GetString("text_xml")
+                    });
+                }
+                _connection.Close();
             }
-            _connection.Close();
+            catch (MySqlException e)
+            {
+                // do nothing, avoid crash and make sure the client side doensn't know about malfunctionning
+                throw new FaultException(e.Message);
+            }
             return outputList;
         }
         /// <summary>
@@ -59,22 +68,32 @@ namespace FoodManagerService.Database
         /// <returns>id</returns>
         public int Create(Recipe recipe, int idUser)
         {
-            _connection.Open();
-            MySqlCommand cmd = new MySqlCommand()
+            int id = 0;
+            try
             {
-                Connection = _connection,
-                CommandText = "INSERT INTO recipes(title, text_xml, picture_path, id_user)" +
-                              " VALUES (@title, @text_xml, @picture_path, @id_user)"
-            };
-            cmd.Prepare();
-            cmd.Parameters.AddWithValue("@title", recipe.Title);
-            cmd.Parameters.AddWithValue("@text_xml", recipe.TextXml);
-            cmd.Parameters.AddWithValue("@picture_path", recipe.ImagePath);
-            cmd.Parameters.AddWithValue("@id_user", idUser);
-            cmd.ExecuteNonQuery();
-            cmd.CommandText = "SELECT LAST_INSERT_ID()";
-            int id = int.Parse(cmd.ExecuteScalar().ToString());
-            _connection.Close();
+                _connection.Open();
+                MySqlCommand cmd = new MySqlCommand()
+                {
+                    Connection = _connection,
+                    CommandText = "INSERT INTO recipes(title, text_xml, picture_path, id_user)" +
+                                  " VALUES (@title, @text_xml, @picture_path, @id_user)"
+                };
+                cmd.Prepare();
+                cmd.Parameters.AddWithValue("@title", recipe.Title);
+                cmd.Parameters.AddWithValue("@text_xml", recipe.TextXml);
+                cmd.Parameters.AddWithValue("@picture_path", recipe.ImagePath);
+                cmd.Parameters.AddWithValue("@id_user", idUser);
+                cmd.ExecuteNonQuery();
+                cmd.CommandText = "SELECT LAST_INSERT_ID()";
+                id = int.Parse(cmd.ExecuteScalar().ToString());
+                _connection.Close();
+            }
+            catch (MySqlException e)
+            {
+                // do nothing, avoid crash and make sure the client side doensn't know about malfunctionning
+                throw new FaultException(e.Message);
+            }
+
             return id;
         }
         /// <summary>
@@ -84,24 +103,33 @@ namespace FoodManagerService.Database
         /// <param name="idUser"></param>
         public void Update(Recipe recipe,int idUser)
         {
-            _connection.Open();
-            MySqlCommand cmd = new MySqlCommand()
+            try
             {
-                Connection = _connection,
-                CommandText = "UPDATE recipes SET " +
-                              "title = @title," +
-                              "text_xml = @text_xml," +
-                              "picture_path = @picture_path" +
-                              " WHERE id = @id AND id_user = @id_user"
-            };
-            cmd.Prepare();
-            cmd.Parameters.AddWithValue("@title", recipe.Title);
-            cmd.Parameters.AddWithValue("@text_xml", recipe.TextXml);
-            cmd.Parameters.AddWithValue("@picture_path", recipe.ImagePath);
-            cmd.Parameters.AddWithValue("@id", recipe.Id);
-            cmd.Parameters.AddWithValue("@id_user", idUser);
-            cmd.ExecuteNonQuery();
-            _connection.Close();
+                _connection.Open();
+                MySqlCommand cmd = new MySqlCommand()
+                {
+                    Connection = _connection,
+                    CommandText = "UPDATE recipes SET " +
+                                  "title = @title," +
+                                  "text_xml = @text_xml," +
+                                  "picture_path = @picture_path" +
+                                  " WHERE id = @id AND id_user = @id_user"
+                };
+                cmd.Prepare();
+                cmd.Parameters.AddWithValue("@title", recipe.Title);
+                cmd.Parameters.AddWithValue("@text_xml", recipe.TextXml);
+                cmd.Parameters.AddWithValue("@picture_path", recipe.ImagePath);
+                cmd.Parameters.AddWithValue("@id", recipe.Id);
+                cmd.Parameters.AddWithValue("@id_user", idUser);
+                cmd.ExecuteNonQuery();
+                _connection.Close();
+            }
+            catch (MySqlException e)
+            {
+                // do nothing, avoid crash and make sure the client side doensn't know about malfunctionning
+                throw new FaultException(e.Message);
+            }
+
         }
         /// <summary>
         /// delete recipe
@@ -110,17 +138,26 @@ namespace FoodManagerService.Database
         /// <param name="idUser"></param>
         public void Delete(Recipe recipe, int idUser)
         {
-            _connection.Open();
-            MySqlCommand cmd = new MySqlCommand()
+            try
             {
-                Connection = _connection,
-                CommandText = "DELETE FROM recipes WHERE id = @id AND id_user = @id_user"
-            };
-            cmd.Prepare();
-            cmd.Parameters.AddWithValue("@id", recipe.Id);
-            cmd.Parameters.AddWithValue("@id_user", idUser);
-            cmd.ExecuteNonQuery();
-            _connection.Close();
+                _connection.Open();
+                MySqlCommand cmd = new MySqlCommand()
+                {
+                    Connection = _connection,
+                    CommandText = "DELETE FROM recipes WHERE id = @id AND id_user = @id_user"
+                };
+                cmd.Prepare();
+                cmd.Parameters.AddWithValue("@id", recipe.Id);
+                cmd.Parameters.AddWithValue("@id_user", idUser);
+                cmd.ExecuteNonQuery();
+                _connection.Close();
+            }
+            catch (MySqlException e)
+            {
+                // do nothing, avoid crash and make sure the client side doensn't know about malfunctionning
+                throw new FaultException(e.Message);
+            }
+
         }
     }
 }

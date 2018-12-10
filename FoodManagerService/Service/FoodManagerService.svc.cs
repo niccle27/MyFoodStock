@@ -15,10 +15,10 @@ namespace FoodManagerService
     // NOTE: In order to launch WCF Test Client for testing this service, please select FoodManagerService.svc or FoodManagerService.svc.cs at the Solution Explorer and start debugging.
     public class FoodManagerService : IFoodManagerService
     {
-        FoodDAO _foodDao = new FoodDAO(DbConnection.CreateConnection());
-        RecipeDAO _recipeDao = new RecipeDAO(DbConnection.CreateConnection());
-        ValidatorCRUD<Food> _foodValidatorCrud = new ValidatorCRUD<Food>();
-        ValidatorCRUD<Recipe> _recipeValidatorCrud = new ValidatorCRUD<Recipe>();
+        readonly FoodDAO _foodDao = new FoodDAO(DbConnection.CreateConnection());
+        readonly RecipeDAO _recipeDao = new RecipeDAO(DbConnection.CreateConnection());
+        readonly ValidatorCRUD<Food> _foodValidatorCrud = new ValidatorCRUD<Food>();
+        readonly ValidatorCRUD<Recipe> _recipeValidatorCrud = new ValidatorCRUD<Recipe>();
         /// <summary>
         /// get the userId that match the token, return null if not found,0 if token outdated
         /// </summary>

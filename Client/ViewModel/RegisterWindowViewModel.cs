@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using Client.AuthenticationServiceReference;
 using Client.Helper;
 using UserService.Modele;
@@ -101,7 +103,15 @@ namespace Client.ViewModel
                                LoginAlreadyTaken = false;
                                if (_password == _confirmedPassword)
                                {
-                                   string token = userServiceClient.Register(_login, _password);
+                                   string token = null;
+                                   try
+                                   {
+                                       token = userServiceClient.Register(_login, _password);
+                                   }
+                                   catch (FaultException e)
+                                   {
+                                       MessageBox.Show(e.Message);
+                                   }
                                    if (token != null)
                                    {
                                        User user = new User()

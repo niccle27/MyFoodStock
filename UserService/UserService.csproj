@@ -69,7 +69,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Database\DbConnection.cs" />
-    <Compile Include="Database\IDao.cs" />
     <Compile Include="Database\UserDAO.cs" />
     <Compile Include="Helper\HashGenerator.cs" />
     <Compile Include="Helper\Validator.cs" />

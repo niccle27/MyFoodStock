@@ -42,10 +42,8 @@ namespace FoodManagerService
                 {
                     case 0:
                         throw new Exception("Cannot connect to server.  Contact administrator");
-                        break;
                     case 1045:
                         throw new Exception("Invalid username/password, please try again");
-                        break;
                 }
             }
 

@@ -10,7 +10,11 @@ namespace UserService.Helper
     public class HashGenerator
     {
         #region public method
-
+        /// <summary>
+        /// hash a word into a SHA512
+        /// </summary>
+        /// <param name="word"></param>
+        /// <returns></returns>
         public string GenerateSHA512Hash(String word)
         {
             Byte[] output;
@@ -25,7 +29,11 @@ namespace UserService.Helper
             }
             return sb.ToString();
         }
-
+        /// <summary>
+        /// return a token in MD5
+        /// </summary>
+        /// <param name="username"></param>
+        /// <returns></returns>
         public string GenerateTokenHash(string username)
         {
             Random rand = new Random();
@@ -35,7 +43,11 @@ namespace UserService.Helper
         #endregion
 
         #region private region
-
+        /// <summary>
+        /// generate a token in md5
+        /// </summary>
+        /// <param name="word"></param>
+        /// <returns></returns>
         private string GenerateMD5Hash(string word)
         {
             Byte[] output;
